@@ -8,11 +8,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
 
 export default function Home() {
-  function loadActivities() {
+  function loadNotes() {
     return API.get("tahoe", `tahoe/tahoe-activities-1/65/Y`);
   }
   
-  const [activities, setActivities] = useState([]);
+  const [notes, setNotes] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,8 +23,8 @@ export default function Home() {
       }
   
       try {
-        const activities = await loadActivities();
-        setActivities(activities);
+        const notes = await loadNotes();
+        setNotes(notes);
       } catch (e) {
         onError(e);
       }
@@ -35,16 +35,16 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]); // only update hook when authenticated value changes
 
-  function renderActivitiesList(activities) {
+  function renderNotesList(notes) {
     return (
       <>
-        <LinkContainer to="/activities/new">
+        <LinkContainer to="/notes/new">
           <ListGroup.Item action className="py-3 text-nowrap text-truncate">
             <BsPencilSquare size={17} />
             <span className="ml-2 font-weight-bold">Create a new note</span>
           </ListGroup.Item>
         </LinkContainer>
-        <p>{notes.name}</p>
+    <p>{notes.name}</p>
         {/* {notes.map(({ name, content, createdAt }) => (
           <LinkContainer key={name} to={`/notes/${name}`}>
             <ListGroup.Item action>
