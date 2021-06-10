@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+.Home .lander {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.Home .lander h1 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+}
+=======
 .panels > div {
   border: 1px solid black;
 }
@@ -33,3 +44,4 @@
     grid-column: span 1;
   }
 }
+>>>>>>> c8ed075775d2aea16303c19f6f2e44273903df7b
