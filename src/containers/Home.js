@@ -8,11 +8,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
 
 export default function Home() {
-  function loadNotes() {
+  function loadActivities() {
     return API.get("tahoe", `tahoe/tahoe-activities-1/65/Y`);
   }
   
-  const [notes, setNotes] = useState([]);
+  const [activities, setActivities] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -23,8 +23,8 @@ export default function Home() {
       }
   
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const activities = await loadActivities();
+        setActivities(activities);
       } catch (e) {
         onError(e);
       }
@@ -35,10 +35,10 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]); // only update hook when authenticated value changes
 
-  function renderNotesList(notes) {
+  function renderActivitiesList(activities) {
     return (
       <>
-        <LinkContainer to="/notes/new">
+        <LinkContainer to="/activities/new">
           <ListGroup.Item action className="py-3 text-nowrap text-truncate">
             <BsPencilSquare size={17} />
             <span className="ml-2 font-weight-bold">Create a new note</span>
