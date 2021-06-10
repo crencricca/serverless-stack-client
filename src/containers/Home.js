@@ -9,7 +9,7 @@ import "./Home.css";
 
 export default function Home() {
   function loadNotes() {
-    return API.get("notes", "/notes");
+    return API.get("tahoe", `tahoe/tahoe-activities-1/65/Y`);
   }
   
   const [notes, setNotes] = useState([]);
@@ -44,8 +44,9 @@ export default function Home() {
             <span className="ml-2 font-weight-bold">Create a new note</span>
           </ListGroup.Item>
         </LinkContainer>
-        {notes.map(({ noteId, content, createdAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
+        <p>{notes.name}</p>
+        {/* {notes.map(({ name, content, createdAt }) => (
+          <LinkContainer key={name} to={`/notes/${name}`}>
             <ListGroup.Item action>
               <span className="font-weight-bold">
                 {content.trim().split("\n")[0]}
@@ -56,7 +57,7 @@ export default function Home() {
               </span>
             </ListGroup.Item>
           </LinkContainer>
-        ))}
+        ))} */}
       </>
     );
   }

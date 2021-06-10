@@ -19,7 +19,7 @@ export default function Notes() {
 
   useEffect(() => {
     function loadNote() {
-      return API.get("notes", `/notes/${id}`);
+      return API.get("tahoe", `/tahoe/{tableName}/{temp}/{precip}`);
     }
 
     async function onLoad() {

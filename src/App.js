@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -9,13 +8,6 @@ import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { onError } from "./libs/errorLib";
-=======
-import React from "react";
-import Navbar from "react-bootstrap/Navbar";
-import "./App.css";
-import Routes from "./Routes";
-import Nav from "react-bootstrap/Nav";
->>>>>>> c8ed075775d2aea16303c19f6f2e44273903df7b
 
 function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -48,7 +40,6 @@ function App() {
   }
 
   return (
-<<<<<<< HEAD
     !isAuthenticating && (
       <div className="App container py-3">
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
@@ -80,23 +71,6 @@ function App() {
         </AppContext.Provider>
       </div>
     )
-=======
-    <div className="App container py-3">
-      <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
-        <Navbar.Brand href="/" className="font-weight-bold text-muted">
-          Scratch
-        </Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
-          <Nav>
-            <Nav.Link href="/signup">Signup</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      <Routes />
-    </div>
->>>>>>> c8ed075775d2aea16303c19f6f2e44273903df7b
   );
 }
 
