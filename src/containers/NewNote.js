@@ -49,8 +49,15 @@ export default function NewNote() {
   
   
   function createNote(note) {
-    return API.post("notes", "/notes", {
-      body: note
+    return API.post("tahoe", "tahoe", {
+        body: {
+          "name":"sandwhiches",
+          "cold":"N",
+          "hot":"Y",
+          "temperate":"Y",
+          "tableName":"tahoe-food-1", 
+          "precip":"Y"
+        }
     });
   }
 
