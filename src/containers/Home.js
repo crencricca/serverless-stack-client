@@ -11,16 +11,30 @@ import Youtube from '../components/Youtube';
 
 export default function Home() {
   
-  const [temp, setTemp] = useState([65]);
+  const [weather, setWeather] = useState([]);
+  const [temp, setTemp] = useState([290]);
   const [precip, setPrecip] = useState([])
   const [activity, setActivity] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
+  function stringify(d) {
+    if (d != undefined) {
+      console.log(JSON.stringify(d));
+      return JSON.stringify(d);
+    } else {
+      return "";
+    }
+    
+    
+  }
+
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadActivity() {
-    return API.get("tahoe", `tahoe/tahoe-activities-1/${temp}/Y`);
+    var t = (temp - 273.15) * (9/5) + 32;
+    console.log(t);
+    return API.get("tahoe", `tahoe/tahoe-activities-1/${t}/Y`);
   }
 
   // This function loads the weather from the weather API.
@@ -32,8 +46,10 @@ export default function Home() {
       .then(response => response.json())
       .then(data =>  {
         var res = data
+        setWeather(res)
+
         d = JSON.stringify(res.main.temp)
-        setTemp(d);
+        setTemp(d)
       })
     return out;
   }
@@ -46,7 +62,7 @@ export default function Home() {
   
       try {
         const temp = await loadWeather();
-  
+        
         const activity = await loadActivity();
         setActivity(activity);
       } catch (e) {
@@ -65,8 +81,8 @@ export default function Home() {
         <Jumbotron fluid>
           <Container>
             <Row className="justify-content-md-end">
-              <Col xs lg="1">
-                <h3> {temp} </h3>
+              <Col xs lg="2">
+                <h3> {stringify(weather.main.temp_min)}° K </h3>
               </Col>
             </Row>
             <Row className="justify-content-md-center">
@@ -80,12 +96,10 @@ export default function Home() {
             <Card className="bg-danger text-white">
               <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{notes.name}</Card.Title>
+                <Card.Title>{activity.name}</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
-
-                  
                 </Card.Text>
                 {/* <Button variant="primary">Go somewhere</Button> */}
               </Card.Body>
@@ -94,7 +108,7 @@ export default function Home() {
             <Card className="bg-info text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{notes.name}</Card.Title>
+                <Card.Title>{activity.name}</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
