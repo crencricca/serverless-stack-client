@@ -1,2 +1,7 @@
 .App {
+  min-width: 100%;
+}
+
+html,body{
+  height: 100%
 }
