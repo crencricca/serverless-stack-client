@@ -36,7 +36,7 @@ function App() {
     await Auth.signOut();
   
     userHasAuthenticated(false);
-    history.push("/login");
+    history.push("/");
   }
 
   return (
@@ -44,22 +44,22 @@ function App() {
       <div className="App container py-3">
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
-            <Navbar.Brand className="font-weight-bold text-muted">
-              Scratch
+            <Navbar.Brand className="logo">
+              tb
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                <Nav.Link onClick={handleLogout}>logout</Nav.Link>
               ) : (
                 <>
                   <LinkContainer to="/signup">
-                    <Nav.Link>Signup</Nav.Link>
+                    <Nav.Link className = "links">signup</Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to="/login">
-                    <Nav.Link>Login</Nav.Link>
+                  <LinkContainer className = "links" to="/login">
+                    <Nav.Link className = "links">login</Nav.Link>
                   </LinkContainer>
                 </>
               )}

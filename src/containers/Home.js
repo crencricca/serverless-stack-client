@@ -41,7 +41,7 @@ export default function Home() {
         <LinkContainer to="/activities/new">
           <ListGroup.Item action className="py-3 text-nowrap text-truncate">
             <BsPencilSquare size={17} />
-            <span className="ml-2 font-weight-bold">Create a new note</span>
+            <span className="ml-2 font-weight-bold">Suggest a Resturant or Activity</span>
           </ListGroup.Item>
         </LinkContainer>
     <p>{notes.name}</p>
@@ -65,8 +65,8 @@ export default function Home() {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Scratch</h1>
-        <p className="text-muted">A simple note taking app</p>
+        <h1>tahoe buddy</h1>
+        <p className="slogan">unsure what to do? we have your back</p>
       </div>
     );
   }
