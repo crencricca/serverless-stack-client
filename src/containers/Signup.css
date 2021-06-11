@@ -7,4 +7,14 @@
     margin: 0 auto;
     max-width: 320px;
   }
+
+  .btn-success.disabled, .btn-success:disabled {
+    color: #fff;
+    background-color: #64BEC3;
+    border-color: #64BEC3;
+  }
+
+  .form-label {
+    color: #005157;
+  }
 }
