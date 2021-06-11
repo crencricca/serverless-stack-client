@@ -45,7 +45,7 @@ function App() {
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
             <Navbar.Brand className="font-weight-bold text-muted">
-              Scratch
+              tahoe buddy
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
@@ -54,16 +54,16 @@ function App() {
               {isAuthenticated ? (
                 <>
                 <LinkContainer to="/suggestion">
-                <Nav.Link>Suggest Something</Nav.Link>
+                  <Nav.Link>have a suggestion?</Nav.Link>
                 </LinkContainer>
                 <LinkContainer to="/">
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  <Nav.Link onClick={handleLogout}>logout</Nav.Link>
                 </LinkContainer>
                 </>
               ) : (
                 <>
                   <LinkContainer to="/login">
-                    <Nav.Link>Login</Nav.Link>
+                    <Nav.Link>login</Nav.Link>
                   </LinkContainer>
                 </>
               )}

@@ -11,6 +11,9 @@ import Youtube from '../components/Youtube';
 import config from "../config";
 
 export default function Home() {
+  function loadNotes() {
+    return API.get("tahoe", `/tahoe/tahoe-activities-1/65/Y`);
+  }
   
   const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState([290]);
