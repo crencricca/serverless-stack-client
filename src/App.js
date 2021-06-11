@@ -42,7 +42,7 @@ function App() {
   return (
     !isAuthenticating && (
       <div className="App container py-3">
-        {/* <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+        <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
             <Navbar.Brand className="font-weight-bold text-muted">
               Scratch
@@ -52,12 +52,16 @@ function App() {
           <Navbar.Collapse className="justify-content-end">
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
+                <>
+                <LinkContainer to="/suggestion">
+                <Nav.Link>Suggest Something</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to="/">
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                </LinkContainer>
+                </>
               ) : (
                 <>
-                  <LinkContainer to="/signup">
-                    <Nav.Link>Signup</Nav.Link>
-                  </LinkContainer>
                   <LinkContainer to="/login">
                     <Nav.Link>Login</Nav.Link>
                   </LinkContainer>
@@ -65,7 +69,7 @@ function App() {
               )}
             </Nav>
           </Navbar.Collapse>
-        </Navbar> */}
+        </Navbar>
         <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated }}>
           <Routes />
         </AppContext.Provider>

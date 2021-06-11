@@ -6,7 +6,7 @@ import { API } from "aws-amplify";
 import { BsPencilSquare } from "react-icons/bs";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
-import { Jumbotron, Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
 
 export default function Home() {
@@ -54,22 +54,22 @@ export default function Home() {
           </Container>
         </Jumbotron>
         <Container fluid>
-          <Row className="justify-content-md-start">
-            <Col xs lg="4">
-            <Card>
-              <Card.Img variant="top" src="./lake.png" className="card-image-top" />
+            <CardDeck>
+            <Card className="bg-danger text-white">
+              <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
               <Card.Body>
                 <Card.Title>{notes.name}</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
+
+                  
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                {/* <Button variant="primary">Go somewhere</Button> */}
               </Card.Body>
             </Card>
-            </Col>
-            <Col xs lg="4">
-            <Card>
+
+            <Card className="bg-info text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
                 <Card.Title>{notes.name}</Card.Title>
@@ -77,29 +77,26 @@ export default function Home() {
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
                 </Card.Text>
-                {/* <Button variant="primary">Go somewhere</Button> */}
+                <Button variant="light">Refresh</Button>
               </Card.Body>
             </Card>
-            </Col>
-            <Col xs lg="4">
-            <Card>
+            <Card className="text-white bg-warning">
               <Card.Body>
                 <Youtube embedId="rokGy0huYEA" />
               </Card.Body>
             </Card>
-            </Col>
-            </Row>
+            </CardDeck>
         </Container>
-        <LinkContainer fluid to="/activities/new">
+        {/* <LinkContainer fluid to="/activities/new">
           <Row  className="justify-content-md-start fixed-bottom py-2 px-2">
             <Col xs lg="3" >
-              <ListGroup.Item action className="py-3 text-nowrap text-truncate">
+              <ListGroup.Item action className="py-3 text-nowrap text-truncate bg-light">
                 <BsPencilSquare size={17} />
                 <span className="ml-2 font-weight-bold">Suggest something!</span>
               </ListGroup.Item>
             </Col>
             </Row>
-        </LinkContainer>
+        </LinkContainer> */}
         {/* {notes.map(({ name, content, createdAt }) => (
           <LinkContainer key={name} to={`/notes/${name}`}>
             <ListGroup.Item action>
