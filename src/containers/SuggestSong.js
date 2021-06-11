@@ -2,29 +2,30 @@ import API from "@aws-amplify/api";
 import React, { useState, useRef } from "react"; 
 import LoaderButton from "../components/LoaderButton";
 import Form from "react-bootstrap/Form"; 
-import "./SuggestRestaurant.css"; 
+import "./SuggestSong.css"; 
 import { Jumbotron } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
 
 
-export default function SuggestRestaurant() {
-    const [restaurantName, setRestaurantName] = useState(""); 
-    const [restaurantCategory, setRestaurantCategory] = useState(""); 
-    const [restaurantHotness, setRestaurantHotness] = useState(false); 
-    const [restaurantColdness, setRestaurantColdness] = useState(false);
-    const [restaurantTemperateness, setRestaurantTemperatness] = useState(false); 
-    const [restaurantRainyness, setRestaurantRainyness] = useState(false); 
-    const [restaurantSnowyness, setRestaurantSnowyness] = useState(false); // we don't use as of now
+export default function Suggestsong() {
+    const fileName = useRef(""); 
+    const [songName, setsongName] = useState(""); 
+    const [songCategory, setsongCategory] = useState(""); 
+    const [songLink, setSongLink] = useState("");
+    const [songHotness, setsongHotness] = useState(false); 
+    const [songColdness, setsongColdness] = useState(false);
+    const [songTemperateness, setsongTemperatness] = useState(false); 
+    const [songRainyness, setsongRainyness] = useState(false); 
+    const [songSnowyness, setsongSnowyness] = useState(false); // we don't use as of now
 
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory(); 
     const TABLE_NAME = 'tahoe-food-1'
 
     function validateForm() {
-        return restaurantName.length > 0 & restaurantCategory.length > 0; 
+        return songName.length > 0 & songCategory.length > 0; 
     }
-
 
     /**
      * API Call requires: 
@@ -36,18 +37,18 @@ export default function SuggestRestaurant() {
         setIsLoading(true);
 
     // Change variable declaration to match API request keys
-        const name = restaurantName; 
+        const name = songName; 
         const fileName = fileName; 
-        const songLink = ""; 
-        const cold = (restaurantColdness ? "Y" : "N");
-        const hot = (restaurantHotness ? "Y" : "N");
-        const temperate = (restaurantTemperateness ? "Y" : "N");
-        const precip = (restaurantRainyness ? "Y" : "N"); 
+        const songLink = songLink; 
+        const cold = (songColdness ? "Y" : "N");
+        const hot = (songHotness ? "Y" : "N");
+        const temperate = (songTemperateness ? "Y" : "N");
+        const precip = (songRainyness ? "Y" : "N"); 
 
         try {
-            await postRestaurantEntry(
+            await postsongEntry(
                 {name,
-                fileName,
+                fileName, 
                 songLink, 
                 cold, 
                 hot,
@@ -55,7 +56,7 @@ export default function SuggestRestaurant() {
                 "tableName" : TABLE_NAME,
                 precip 
             }); 
-            history.push("/suggestion/another")
+            history.push("/suggestion/another");
         }
 
         catch (e) {
@@ -64,80 +65,91 @@ export default function SuggestRestaurant() {
         }
     }
 
-    function postRestaurantEntry(restaurantInformation) {
+    function postsongEntry(songInformation) {
         return API.post("tahoe", "tahoe", {
-            body: restaurantInformation
+            body: songInformation
         }); 
     }
 
     return (
         <Jumbotron>
-                <h1> suggest a restaurant </h1>
+                <h1> suggest a song </h1>
                 <p class="lead">fill out the fields below to have your suggestion added to our database!</p>
                 <hr></hr>
-                <div className = "Restaurant Suggestion"> 
+                <div className = "song Suggestion"> 
                     <Form onSubmit = {submitForm}> 
 
 
-                        <Form.Group controlId="restaurantName">
-                            <Form.Label> 1. what's the restaurant name?</Form.Label> 
+                        <Form.Group controlId="songName">
+                            <Form.Label> 1. what's the song name?</Form.Label> 
                             <Form.Control 
-                                value = {restaurantName}
+                                value = {songName}
                                 type="text"
-                                placeholder="jimmy's cheeto shop"
-                                onChange={(e) => setRestaurantName(e.target.value)}
+                                placeholder="rihanna - disturbia"
+                                onChange={(e) => setsongName(e.target.value)}
                             /> 
                         </Form.Group>
 
-                        <Form.Group controlId="restaurantCateogory">
-                            <Form.Label> 2. what kind of food is here?</Form.Label> 
+                        <Form.Group controlId="songCateogory">
+                            <Form.Label> 2. what kind of song is this?</Form.Label> 
                             <Form.Control 
-                                value = {restaurantCategory}
+                                value = {songCategory}
                                 type="text"
-                                placeholder="really good food"
-                                onChange={(e) => setRestaurantCategory(e.target.value)}
+                                placeholder="makes me wanna cry"
+                                onChange={(e) => setsongCategory(e.target.value)}
+                            /> 
+                        </Form.Group>
+
+
+                        <Form.Group controlId="songCateogory">
+                            <Form.Label> 3. what's the youtube link for this song? </Form.Label> 
+                            <Form.Control 
+                                value = {songLink}
+                                type="text"
+                                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                                onChange={(e) => setSongLink(e.target.value)}
                             /> 
                         </Form.Group>
                         <hr></hr>
 
-                        <p class = 'lead'> and you'd eat here... </p>
-                        <Form.Group controlId="restaurantHotness">
+                        <p class = 'lead'> and you'd listen to this... </p>
+                        <Form.Group controlId="songHotness">
                             <Form.Check 
                                 type="checkbox" 
                                 label="when it's hot outside." 
                                 inline
-                                onChange={(e) => setRestaurantHotness(e.target.value)}/>
+                                onChange={(e) => setsongHotness(e.target.value)}/>
 
                             <Form.Check 
                                 type="checkbox" 
                                 label="when it's cold outside." 
                                 inline
-                                onChange={(e) => setRestaurantColdness(e.target.value)}/>
+                                onChange={(e) => setsongColdness(e.target.value)}/>
 
                             <Form.Check 
                                 type="checkbox" 
                                 label="when it's not too hot but not too cold..." 
                                 inline
-                                onChange={(e) => setRestaurantTemperatness(e.target.value)}/>             
+                                onChange={(e) => setsongTemperatness(e.target.value)}/>             
 
                         </Form.Group>
 
                         <p class = 'lead'> how about when it's ... </p>
 
 
-                        <Form.Group controlId="restaurantWeather">
+                        <Form.Group controlId="songWeather">
 
                             <Form.Check 
                                     type="checkbox" 
                                     label="raining outside?"
                                     inline
-                                    onChange={(e) => setRestaurantRainyness(e.target.value)}/>
+                                    onChange={(e) => setsongRainyness(e.target.value)}/>
 
                             <Form.Check 
                                     type="checkbox" 
                                     label="snowing outside?"
                                     inline
-                                    onChange={(e) => setRestaurantSnowyness(e.target.value)}/>
+                                    onChange={(e) => setsongSnowyness(e.target.value)}/>
                         </Form.Group>
 
                         <LoaderButton

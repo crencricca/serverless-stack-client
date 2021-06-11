@@ -1,5 +1,5 @@
 import API from "@aws-amplify/api";
-import React, { useState } from "react"; 
+import React, { useState, useRef } from "react"; 
 import LoaderButton from "../components/LoaderButton";
 import Form from "react-bootstrap/Form"; 
 import "./SuggestRestaurant.css"; 
@@ -9,13 +9,14 @@ import { onError } from "../libs/errorLib";
 
 
 export default function SuggestActivity() {
+    const fileName = useRef(""); 
     const [activityName, setActivityName] = useState(""); 
     const [activityCategory, setActivityCategory] = useState(""); 
     const [activityHotness, setActivityHotness] = useState(false); 
     const [activityColdness, setActivityColdness] = useState(false);
     const [activityTemperateness, setActivityTemperateness] = useState(false); 
     const [activityRainyness, setActivityRainyness] = useState(false); 
-    const [activitySnowyness, setActivitySnowyness] = useState(false); 
+    const [activitySnowyness, setActivitySnowyness] = useState(false); // we don't use as of now
 
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory(); 
@@ -25,12 +26,19 @@ export default function SuggestActivity() {
         return activityName.length > 0 & activityCategory.length > 0; 
     }
 
+    /**
+     * API Call requires: 
+     *   a name, fileName, songLink, cold, hot, temperate, tableName, & precip. 
+     */
     async function submitForm(event) {
         event.preventDefault(); 
 
         setIsLoading(true);
 
+    // Change variable declaration to match API request keys
         const name = activityName; 
+        const fileName = fileName;
+        const songLink = ""; 
         const cold = (activityColdness ? "Y" : "N");
         const hot = (activityHotness ? "Y" : "N");
         const temperate = (activityTemperateness ? "Y" : "N");
@@ -39,13 +47,15 @@ export default function SuggestActivity() {
         try {
             await postActivityEntry(
                 {name,
+                fileName, 
+                songLink, 
                 cold, 
                 hot,
                 temperate,
                 "tableName" : TABLE_NAME,
                 precip 
             }); 
-            history.push("/suggestion/another")
+            history.push("/suggestion/another");
         }
 
         catch (e) {
