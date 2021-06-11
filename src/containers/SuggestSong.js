@@ -66,7 +66,7 @@ export default function Suggestsong() {
     }
 
     function postsongEntry(songInformation) {
-        return API.post("tahoe", "tahoe", {
+        return API.post("tahoe", "/tahoe", {
             body: songInformation
         }); 
     }

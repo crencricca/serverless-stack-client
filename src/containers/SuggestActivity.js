@@ -65,7 +65,7 @@ export default function SuggestActivity() {
     }
 
     function postActivityEntry(activityInformation) {
-        return API.post("tahoe", "tahoe", {
+        return API.post("tahoe", "/tahoe", {
             body: activityInformation
         }); 
     }

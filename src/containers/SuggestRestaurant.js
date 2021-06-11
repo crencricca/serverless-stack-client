@@ -66,7 +66,7 @@ export default function SuggestRestaurant() {
     }
 
     function postRestaurantEntry(restaurantInformation) {
-        return API.post("tahoe", "tahoe", {
+        return API.post("tahoe", "/tahoe", {
             body: restaurantInformation
         }); 
     }
