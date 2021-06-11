@@ -16,3 +16,13 @@
 .Home{
   background-color: #64BEC3
 }
+
+.Home .card-img-top {
+  width: 100%;
+  height: 10vw;
+  object-fit: cover;
+}
+
+.Home .Card {
+  min-height: 30%;
+}

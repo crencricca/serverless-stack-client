@@ -4,8 +4,15 @@ import Home from "./containers/Home";
 import Login from "./containers/Login";
 import NotFound from "./containers/NotFound";
 import Signup from "./containers/Signup";
-import NewNote from "./containers/NewNote";
 import Notes from "./containers/Notes";
+import Suggest from "./containers/Suggest"; 
+import AnotherSuggestion from "./containers/AnotherSuggestion";
+import SuggestRestaurant from "./containers/SuggestRestaurant"; 
+import SuggestActivity from "./containers/SuggestActivity"; 
+import SuggestSong from "./containers/SuggestSong";
+
+
+
 
 export default function Routes() {
   return (
@@ -13,15 +20,35 @@ export default function Routes() {
       <Route exact path="/">
         <Home />
       </Route>
+
       <Route exact path="/login">
         <Login />
       </Route>
+
       <Route exact path="/signup">
         <Signup />
       </Route>
-      <Route exact path="/activities/new">
-        <NewNote />
+
+      <Route exact path="/suggestion">
+        <Suggest />
       </Route>
+
+      <Route exact path="/suggestion/another">
+        <AnotherSuggestion />
+      </Route>
+
+      <Route exact path="/suggestion/restaurant">
+        <SuggestRestaurant />
+      </Route>
+
+      <Route exact path="/suggestion/activity">
+        <SuggestActivity />
+      </Route>
+
+      <Route exact path="/suggestion/song">
+        <SuggestSong />
+      </Route>
+
       <Route exact path="/notes/:id">
         <Notes />
       </Route>

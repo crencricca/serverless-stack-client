@@ -16,3 +16,10 @@
     background-color: #faf9fa!important;
 }
 
+.App {
+  min-width: 100%;
+}
+
+html,body{
+  height: 100%
+}
