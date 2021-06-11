@@ -148,12 +148,6 @@ export default function SuggestActivity() {
                                     onChange={(e) => setActivitySnowyness(e.target.value)}/>
                         </Form.Group>
 
-
-
-                        <hr></hr>
-
-                        <p class = 'lead'> do you have any pictures at this place? feel free to put a funny one or just you hanging out there </p>
-
                         <LoaderButton
                             block
                             type="submit"
