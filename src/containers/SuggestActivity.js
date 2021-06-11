@@ -23,6 +23,7 @@ export default function SuggestActivity() {
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory(); 
     const TABLE_NAME = 'tahoe-activities-1'
+    const S3URL = '__'
 
     function validateForm() {
         return activityName.length > 0 & activityCategory.length > 0; 
@@ -31,7 +32,7 @@ export default function SuggestActivity() {
     function handleFileChange(event) {
         suggestionFile.current = event.target.files[0];
     }
-
+    
     /**
      * API Call requires: 
      *   a name, fileName, songLink, cold, hot, temperate, tableName, & precip. 
