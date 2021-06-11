@@ -153,11 +153,6 @@ export default function SuggestActivity() {
                         <hr></hr>
 
                         <p class = 'lead'> do you have any pictures at this place? feel free to put a funny one or just you hanging out there </p>
-                        
-                        <Form.Group controlId="file">
-                             <Form.File onChange = {handleFileChange} id="exampleFormControlFile1"/>
-                        </Form.Group>
-
 
                         <LoaderButton
                             block
