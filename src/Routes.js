@@ -6,7 +6,9 @@ import NotFound from "./containers/NotFound";
 import Signup from "./containers/Signup";
 import Notes from "./containers/Notes";
 import Suggest from "./containers/Suggest"; 
+import AnotherSuggestion from "./containers/AnotherSuggestion";
 import SuggestRestaurant from "./containers/SuggestRestaurant"; 
+
 
 
 export default function Routes() {
@@ -26,6 +28,10 @@ export default function Routes() {
 
       <Route exact path="/suggestion">
         <Suggest />
+      </Route>
+
+      <Route exact path="/suggestion/another">
+        <AnotherSuggestion />
       </Route>
 
       <Route exact path="/suggestion/restaurant">

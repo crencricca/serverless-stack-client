@@ -45,7 +45,7 @@ export default function SuggestRestaurant() {
                 "tableName" : TABLE_NAME,
                 precip 
             }); 
-            history.push("/")
+            history.push("/suggestion/another")
         }
 
         catch (e) {
