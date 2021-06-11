@@ -11,7 +11,7 @@ import Youtube from '../components/Youtube';
 
 export default function Home() {
   function loadNotes() {
-    return API.get("tahoe", `tahoe/tahoe-activities-1/65/Y`);
+    return API.get("tahoe", `/tahoe/tahoe-activities-1/65/Y`);
   }
   
   const [notes, setNotes] = useState([]);
