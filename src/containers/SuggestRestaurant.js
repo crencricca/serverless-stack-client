@@ -36,12 +36,6 @@ export default function SuggestRestaurant() {
         const temperate = (restaurantTemperateness ? "Y" : "N");
         const precip = (restaurantRainyness ? "Y" : "N"); 
 
-        if (restaurantHotness) {
-            hot = "Y";
-        } else {
-            cold = "N"; 
-        }
-
         try {
             await postRestaurantEntry(
                 {name,
