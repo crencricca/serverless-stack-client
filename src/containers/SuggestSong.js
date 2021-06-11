@@ -21,7 +21,7 @@ export default function Suggestsong() {
 
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory(); 
-    const TABLE_NAME = 'tahoe-food-1'
+    const TABLE_NAME = 'tahoe-songs-1'
 
     function validateForm() {
         return songName.length > 0 & songCategory.length > 0; 
