@@ -6,10 +6,11 @@ import "./SuggestRestaurant.css";
 import { Jumbotron } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
+import { s3Upload } from "../libs/awsLib";
 
 
 export default function SuggestRestaurant() {
-    const suggestionFileName = useRef(""); 
+    const suggestionFile = useRef(""); 
     const [restaurantName, setRestaurantName] = useState(""); 
     const [restaurantCategory, setRestaurantCategory] = useState(""); 
     const [restaurantHotness, setRestaurantHotness] = useState(false); 
@@ -26,6 +27,10 @@ export default function SuggestRestaurant() {
         return restaurantName.length > 0 & restaurantCategory.length > 0; 
     }
 
+    function handleFileChange(event) {
+        suggestionFile.current = event.target.files[0];
+    }
+
 
     /**
      * API Call requires: 
@@ -38,7 +43,7 @@ export default function SuggestRestaurant() {
 
     // Change variable declaration to match API request keys
         const name = restaurantName; 
-        const fileName = suggestionFileName;
+        const description = restaurantCategory;
         const songLink = ""; 
         const cold = (restaurantColdness ? "Y" : "N");
         const hot = (restaurantHotness ? "Y" : "N");
@@ -46,9 +51,11 @@ export default function SuggestRestaurant() {
         const precip = (restaurantRainyness ? "Y" : "N"); 
 
         try {
+            const fileName = suggestionFile.current ? await s3Upload(suggestionFile.current) : null; 
             await postRestaurantEntry(
                 {name,
                 fileName,
+                description,
                 songLink, 
                 cold, 
                 hot,
@@ -140,7 +147,7 @@ export default function SuggestRestaurant() {
                                     inline
                                     onChange={(e) => setRestaurantSnowyness(e.target.value)}/>
                         </Form.Group>
-
+                        
                         <LoaderButton
                             block
                             type="submit"

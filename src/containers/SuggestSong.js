@@ -38,6 +38,7 @@ export default function Suggestsong() {
 
     // Change variable declaration to match API request keys
         const name = songName; 
+        const description = songCategory;
         const fileName = suggestionFileName; 
         const songLink = songLink; 
         const cold = (songColdness ? "Y" : "N");
@@ -49,6 +50,7 @@ export default function Suggestsong() {
             await postsongEntry(
                 {name,
                 fileName, 
+                description, 
                 songLink, 
                 cold, 
                 hot,
