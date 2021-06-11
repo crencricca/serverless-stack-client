@@ -12,7 +12,7 @@ export default function Suggestsong() {
     const suggestionFileName = useRef(""); 
     const [songName, setsongName] = useState(""); 
     const [songCategory, setsongCategory] = useState(""); 
-    const [songLink, setSongLink] = useState("");
+    const [suggestionSongLink, setSongLink] = useState("");
     const [songHotness, setsongHotness] = useState(false); 
     const [songColdness, setsongColdness] = useState(false);
     const [songTemperateness, setsongTemperatness] = useState(false); 
@@ -40,7 +40,7 @@ export default function Suggestsong() {
         const name = songName; 
         const description = songCategory;
         const fileName = suggestionFileName; 
-        const songLink = songLink; 
+        const songLink = suggestionSongLink; 
         const cold = (songColdness ? "Y" : "N");
         const hot = (songHotness ? "Y" : "N");
         const temperate = (songTemperateness ? "Y" : "N");
