@@ -6,19 +6,18 @@ import { API } from "aws-amplify";
 import { BsPencilSquare } from "react-icons/bs";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
+import { FaSyncAlt } from 'react-icons/fa';
 import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
 import config from "../config";
 
 export default function Home() {
-  function loadNotes() {
-    return API.get("tahoe", `/tahoe/tahoe-activities-1/65/Y`);
-  }
   
   const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState([290]);
   const [precip, setPrecip] = useState([])
   const [activity, setActivity] = useState([]);
+  const [food, setFood] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -29,8 +28,6 @@ export default function Home() {
     } else {
       return "";
     }
-    
-    
   }
 
   // This function loads an activity from the tahoe-activities-1 database.
@@ -38,7 +35,15 @@ export default function Home() {
   function loadActivity() {
     var t = (temp - 273.15) * (9/5) + 32;
     console.log(t);
-    return API.get("tahoe", `/tahoe/tahoe-activities-1/${t}/Y`);
+    return API.get("tahoe", `/tahoe/tahoe-activities-1/60/N`);
+  }
+
+  // This function loads an activity from the tahoe-activities-1 database.
+  // TODO: take params
+  function loadFood() {
+    var t = (temp - 273.15) * (9/5) + 32;
+    console.log(t);
+    return API.get("tahoe", `/tahoe/tahoe-food-1/60/Y`);
   }
 
   // This function loads the weather from the weather API.
@@ -74,6 +79,9 @@ export default function Home() {
         
         const activity = await loadActivity();
         setActivity(activity);
+
+        const food = await loadFood();
+        setFood(food);
       } catch (e) {
         onError(e);
       }
@@ -83,6 +91,33 @@ export default function Home() {
   
     onLoad();
   }, [isAuthenticated]); // only update hook when authenticated value changes
+
+  async function handleSubmit(event, type) {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      if (type === "activity") {
+        event.preventDefault();
+
+        const activity = await loadActivity();
+        setActivity(activity);
+      } else {
+        event.preventDefault();
+
+        const food = await loadFood();
+        setFood(food);
+      }
+      
+    } catch (e) {
+      onError(e);
+    }
+
+    setIsLoading(false);
+  }
 
   function renderNotesList(notes) {
     return (
@@ -105,12 +140,15 @@ export default function Home() {
             <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{activity.name}</Card.Title>
+                <Card.Title>{food.name}</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
                 </Card.Text>
-                {/* <Button variant="primary">Go somewhere</Button> */}
+                <Row className="justify-content-md-end">
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "food")} >
+                  <FaSyncAlt size={25} /></Button>
+                  </Row>
               </Card.Body>
             </Card>
 
@@ -122,7 +160,10 @@ export default function Home() {
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
                 </Card.Text>
-                <Button variant="light" onClick={loadActivity}>Refresh</Button>
+                  <Row className="justify-content-md-end">
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "activity")} >
+                  <FaSyncAlt size={25} /></Button>
+                  </Row>
               </Card.Body>
             </Card>
             <Card className="text-white bg-3">
