@@ -30,15 +30,26 @@ export default function SuggestRestaurant() {
 
         setIsLoading(true);
 
+        const name = restaurantName; 
+        const cold = (restaurantColdness ? "Y" : "N");
+        const hot = (restaurantHotness ? "Y" : "N");
+        const temperate = (restaurantTemperateness ? "Y" : "N");
+        const precip = (restaurantRainyness ? "Y" : "N"); 
+
+        if (restaurantHotness) {
+            hot = "Y";
+        } else {
+            cold = "N"; 
+        }
+
         try {
             await postRestaurantEntry(
-                {restaurantName, 
-                restaurantCategory,
-                restaurantColdness,
-                restaurantHotness,
-                restaurantTemperateness,
-                TABLE_NAME,
-                restaurantRainyness
+                {name,
+                cold, 
+                hot,
+                temperate,
+                "tableName" : TABLE_NAME,
+                precip 
             }); 
             history.push("/")
         }
