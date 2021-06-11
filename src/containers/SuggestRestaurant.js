@@ -6,10 +6,11 @@ import "./SuggestRestaurant.css";
 import { Jumbotron } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
+import { s3Upload } from "../libs/awsLib";
 
 
 export default function SuggestRestaurant() {
-    const suggestionFileName = useRef(""); 
+    const suggestionFile = useRef(""); 
     const [restaurantName, setRestaurantName] = useState(""); 
     const [restaurantCategory, setRestaurantCategory] = useState(""); 
     const [restaurantHotness, setRestaurantHotness] = useState(false); 
@@ -26,6 +27,10 @@ export default function SuggestRestaurant() {
         return restaurantName.length > 0 & restaurantCategory.length > 0; 
     }
 
+    function handleFileChange(event) {
+        suggestionFile.current = event.target.files[0];
+    }
+
 
     /**
      * API Call requires: 
@@ -38,7 +43,6 @@ export default function SuggestRestaurant() {
 
     // Change variable declaration to match API request keys
         const name = restaurantName; 
-        const fileName = suggestionFileName;
         const songLink = ""; 
         const cold = (restaurantColdness ? "Y" : "N");
         const hot = (restaurantHotness ? "Y" : "N");
@@ -46,6 +50,7 @@ export default function SuggestRestaurant() {
         const precip = (restaurantRainyness ? "Y" : "N"); 
 
         try {
+            const fileName = suggestionFile.current ? await s3Upload(suggestionFile.current) : null; 
             await postRestaurantEntry(
                 {name,
                 fileName,
@@ -141,6 +146,14 @@ export default function SuggestRestaurant() {
                                     onChange={(e) => setRestaurantSnowyness(e.target.value)}/>
                         </Form.Group>
 
+                        <hr></hr>
+
+                        <p class = 'lead'> do you have any pictures at this place? feel free to put a funny one or just you hanging out there </p>
+                        
+                        <Form.Group controlId="file">
+                             <Form.File onChange = {handleFileChange} id="exampleFormControlFile1"/>
+                        </Form.Group>
+                        
                         <LoaderButton
                             block
                             type="submit"
