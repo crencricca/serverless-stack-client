@@ -6,10 +6,12 @@ import "./SuggestRestaurant.css";
 import { Jumbotron } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
+import { s3Upload } from "../libs/awsLib";
+
 
 
 export default function SuggestActivity() {
-    const suggestionFileName = useRef(""); 
+    const suggestionFile = useRef(""); 
     const [activityName, setActivityName] = useState(""); 
     const [activityCategory, setActivityCategory] = useState(""); 
     const [activityHotness, setActivityHotness] = useState(false); 
@@ -26,6 +28,10 @@ export default function SuggestActivity() {
         return activityName.length > 0 & activityCategory.length > 0; 
     }
 
+    function handleFileChange(event) {
+        suggestionFile.current = event.target.files[0];
+    }
+
     /**
      * API Call requires: 
      *   a name, fileName, songLink, cold, hot, temperate, tableName, & precip. 
@@ -37,7 +43,7 @@ export default function SuggestActivity() {
 
     // Change variable declaration to match API request keys
         const name = activityName; 
-        const fileName = suggestionFileName;
+        const description = activityCategory; 
         const songLink = ""; 
         const cold = (activityColdness ? "Y" : "N");
         const hot = (activityHotness ? "Y" : "N");
@@ -45,9 +51,11 @@ export default function SuggestActivity() {
         const precip = (activityRainyness ? "Y" : "N"); 
 
         try {
+            const fileName = suggestionFile.current ? await s3Upload(suggestionFile.current) : null; 
             await postActivityEntry(
                 {name,
                 fileName, 
+                description, 
                 songLink, 
                 cold, 
                 hot,
@@ -139,6 +147,17 @@ export default function SuggestActivity() {
                                     inline
                                     onChange={(e) => setActivitySnowyness(e.target.value)}/>
                         </Form.Group>
+
+
+
+                        <hr></hr>
+
+                        <p class = 'lead'> do you have any pictures at this place? feel free to put a funny one or just you hanging out there </p>
+                        
+                        <Form.Group controlId="file">
+                             <Form.File onChange = {handleFileChange} id="exampleFormControlFile1"/>
+                        </Form.Group>
+
 
                         <LoaderButton
                             block

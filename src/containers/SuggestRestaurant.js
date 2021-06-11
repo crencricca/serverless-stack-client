@@ -43,6 +43,7 @@ export default function SuggestRestaurant() {
 
     // Change variable declaration to match API request keys
         const name = restaurantName; 
+        const description = restaurantCategory;
         const songLink = ""; 
         const cold = (restaurantColdness ? "Y" : "N");
         const hot = (restaurantHotness ? "Y" : "N");
@@ -54,6 +55,7 @@ export default function SuggestRestaurant() {
             await postRestaurantEntry(
                 {name,
                 fileName,
+                description,
                 songLink, 
                 cold, 
                 hot,
