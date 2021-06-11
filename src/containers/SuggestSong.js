@@ -106,7 +106,7 @@ export default function Suggestsong() {
                         <Form.Group controlId="songCateogory">
                             <Form.Label> 3. what's the youtube link for this song? </Form.Label> 
                             <Form.Control 
-                                value = {songLink}
+                                value = {suggestionSongLink}
                                 type="text"
                                 placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
                                 onChange={(e) => setSongLink(e.target.value)}
