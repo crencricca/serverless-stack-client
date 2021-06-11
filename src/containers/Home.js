@@ -37,16 +37,6 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]); // only update hook when authenticated value changes
 
-
-  // S3 Files follow format: https://s3-<region>.amazonaws.com/<bucket-name>/<key> 
-  function getImageFromS3(imageName) {
-    const S3Bucket = 'https://s3-<region>.amazonaws.com/<bucket-name>/'
-    const imageLink = S3Bucket + imageName;
-    return (
-        <img src = {imageLink}/> 
-    )
-
-  }
   function renderNotesList(notes) {
     return (
       <>
