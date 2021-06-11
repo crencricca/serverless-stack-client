@@ -23,7 +23,6 @@ export default function SuggestActivity() {
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory(); 
     const TABLE_NAME = 'tahoe-activities-1'
-    const S3URL = '__'
 
     function validateForm() {
         return activityName.length > 0 & activityCategory.length > 0; 
