@@ -8,6 +8,8 @@ import Notes from "./containers/Notes";
 import Suggest from "./containers/Suggest"; 
 import AnotherSuggestion from "./containers/AnotherSuggestion";
 import SuggestRestaurant from "./containers/SuggestRestaurant"; 
+import SuggestActivity from "./containers/SuggestActivity"; 
+
 
 
 
@@ -36,6 +38,10 @@ export default function Routes() {
 
       <Route exact path="/suggestion/restaurant">
         <SuggestRestaurant />
+      </Route>
+
+      <Route exact path="/suggestion/activity">
+        <SuggestActivity />
       </Route>
 
       <Route exact path="/notes/:id">
