@@ -9,6 +9,7 @@ import { onError } from "../libs/errorLib";
 
 
 export default function SuggestRestaurant() {
+    const fileName = useRef(""); 
     const [restaurantName, setRestaurantName] = useState(""); 
     const [restaurantCategory, setRestaurantCategory] = useState(""); 
     const [restaurantHotness, setRestaurantHotness] = useState(false); 
@@ -37,7 +38,7 @@ export default function SuggestRestaurant() {
 
     // Change variable declaration to match API request keys
         const name = restaurantName; 
-        const fileName = fileName; 
+        const fileName = fileName;
         const songLink = ""; 
         const cold = (restaurantColdness ? "Y" : "N");
         const hot = (restaurantHotness ? "Y" : "N");
