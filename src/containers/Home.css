@@ -6,6 +6,15 @@
 .Home .lander h1 {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
+  color: #faf9f9
+}
+
+.Home .lander .slogan{
+  color: #005157
+}
+
+.Home .jumbo {
+  background-color: #64BEC3
 }
 
 .Home .card-img-top {

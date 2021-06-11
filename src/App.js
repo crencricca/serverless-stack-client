@@ -36,7 +36,7 @@ function App() {
     await Auth.signOut();
   
     userHasAuthenticated(false);
-    history.push("/login");
+    history.push("/");
   }
 
   return (
@@ -44,8 +44,8 @@ function App() {
       <div className="App container py-3">
         <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
           <LinkContainer to="/">
-            <Navbar.Brand className="font-weight-bold text-muted">
-              tahoe buddy
+            <Navbar.Brand className="logo">
+              tb
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
@@ -53,18 +53,21 @@ function App() {
             <Nav activeKey={window.location.pathname}>
               {isAuthenticated ? (
                 <>
-                <LinkContainer to="/suggestion">
-                  <Nav.Link>have a suggestion?</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/">
-                  <Nav.Link onClick={handleLogout}>logout</Nav.Link>
-                </LinkContainer>
-                </>
+                 <LinkContainer to="/suggestion">
+                 <Nav.Link>have a suggestion?</Nav.Link>
+               </LinkContainer>
+               <LinkContainer to="/">
+                 <Nav.Link onClick={handleLogout}>logout</Nav.Link>
+               </LinkContainer>
+               </>
               ) : (
                 <>
-                  <LinkContainer to="/login">
-                    <Nav.Link>login</Nav.Link>
+                  <LinkContainer to="/signup">
+                    <Nav.Link className = "links">signup</Nav.Link>
                   </LinkContainer>
+                  <LinkContainer className = "links" to="/login">
+                    <Nav.Link className = "links">login</Nav.Link>
+                    </LinkContainer>
                 </>
               )}
             </Nav>
