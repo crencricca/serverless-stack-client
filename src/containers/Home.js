@@ -6,17 +6,67 @@ import { API } from "aws-amplify";
 import { BsPencilSquare } from "react-icons/bs";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
+import { FaSyncAlt } from 'react-icons/fa';
 import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
+import config from "../config";
 
 export default function Home() {
-  function loadNotes() {
-    return API.get("tahoe", `/tahoe/tahoe-activities-1/65/Y`);
-  }
   
-  const [notes, setNotes] = useState([]);
+  const [weather, setWeather] = useState([]);
+  const [temp, setTemp] = useState([290]);
+  const [precip, setPrecip] = useState([])
+  const [activity, setActivity] = useState([]);
+  const [food, setFood] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
+
+  function stringify(d) {
+    if (d != undefined) {
+      console.log(JSON.stringify(d));
+      return JSON.stringify(d);
+    } else {
+      return "";
+    }
+  }
+
+  // This function loads an activity from the tahoe-activities-1 database.
+  // TODO: take params
+  function loadActivity() {
+    var t = (temp - 273.15) * (9/5) + 32;
+    console.log(t);
+    return API.get("tahoe", `/tahoe/tahoe-activities-1/60/N`);
+  }
+
+  // This function loads an activity from the tahoe-activities-1 database.
+  // TODO: take params
+  function loadFood() {
+    var t = (temp - 273.15) * (9/5) + 32;
+    console.log(t);
+    return API.get("tahoe", `/tahoe/tahoe-food-1/60/Y`);
+  }
+
+  // This function loads the weather from the weather API.
+  // TODO: take params
+  function loadWeather() {
+    var base = "http://api.openweathermap.org/data/2.5/weather?zip=89451,US&appid="
+    var key = config.weather_api.key
+    var url = base+key
+    var d
+    var out = fetch(url)
+      .then(response => response.json())
+      .then(data =>  {
+        var res = data
+        setWeather(res)
+
+        d = JSON.stringify(res.main.temp)
+        setTemp(d)
+
+        if (JSON.stringify(res.weather.main) === "Clear") setPrecip("N");
+        else setPrecip("Y");
+      })
+    return out;
+  }
 
   useEffect(() => {
     async function onLoad() {
@@ -25,8 +75,13 @@ export default function Home() {
       }
   
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const temp = await loadWeather();
+        
+        const activity = await loadActivity();
+        setActivity(activity);
+
+        const food = await loadFood();
+        setFood(food);
       } catch (e) {
         onError(e);
       }
@@ -37,14 +92,41 @@ export default function Home() {
     onLoad();
   }, [isAuthenticated]); // only update hook when authenticated value changes
 
+  async function handleSubmit(event, type) {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      if (type === "activity") {
+        event.preventDefault();
+
+        const activity = await loadActivity();
+        setActivity(activity);
+      } else {
+        event.preventDefault();
+
+        const food = await loadFood();
+        setFood(food);
+      }
+      
+    } catch (e) {
+      onError(e);
+    }
+
+    setIsLoading(false);
+  }
+
   function renderNotesList(notes) {
     return (
       <>
         <Jumbotron fluid className="jumbo">
           <Container>
             <Row className="justify-content-md-end">
-              <Col xs lg="1">
-                <h3> 65° </h3>
+              <Col xs lg="2">
+                <h3> {temp} ° K </h3>
               </Col>
             </Row>
             <Row className="justify-content-md-center">
@@ -55,61 +137,42 @@ export default function Home() {
         </Jumbotron>
         <Container fluid>
             <CardDeck>
-            <Card className="bg-danger text-white">
+            <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{notes.name}</Card.Title>
+                <Card.Title>{food.name}</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
-
-                  
                 </Card.Text>
-                {/* <Button variant="primary">Go somewhere</Button> */}
+                <Row className="justify-content-md-end">
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "food")} >
+                  <FaSyncAlt size={25} /></Button>
+                  </Row>
               </Card.Body>
             </Card>
 
-            <Card className="bg-info text-white">
+            <Card className="bg-2 text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{notes.name}</Card.Title>
+                <Card.Title>{activity.name}</Card.Title>
                 <Card.Text>
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
                 </Card.Text>
-                <Button variant="light">Refresh</Button>
+                  <Row className="justify-content-md-end">
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "activity")} >
+                  <FaSyncAlt size={25} /></Button>
+                  </Row>
               </Card.Body>
             </Card>
-            <Card className="text-white bg-warning">
+            <Card className="text-white bg-3">
               <Card.Body>
                 <Youtube embedId="rokGy0huYEA" />
               </Card.Body>
             </Card>
             </CardDeck>
         </Container>
-        {/* <LinkContainer fluid to="/activities/new">
-          <Row  className="justify-content-md-start fixed-bottom py-2 px-2">
-            <Col xs lg="3" >
-              <ListGroup.Item action className="py-3 text-nowrap text-truncate bg-light">
-                <BsPencilSquare size={17} />
-                <span className="ml-2 font-weight-bold">Suggest something!</span>
-              </ListGroup.Item>
-            </Col>
-            </Row>
-        </LinkContainer> */}
-        {/* {notes.map(({ name, content, createdAt }) => (
-          <LinkContainer key={name} to={`/notes/${name}`}>
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {content.trim().split("\n")[0]}
-              </span>
-              <br />
-              <span className="text-muted">
-                Created: {new Date(createdAt).toLocaleString()}
-              </span>
-            </ListGroup.Item>
-          </LinkContainer>
-        ))} */}
       </>
     );
   }
@@ -135,7 +198,7 @@ export default function Home() {
 
   return (
     <div className="Home">
-      {isAuthenticated ? renderNotesList(notes) : renderLander()}
+      {isAuthenticated ? renderNotesList(activity) : renderLander()}
     </div>
   );
 }
