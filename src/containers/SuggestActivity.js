@@ -9,7 +9,7 @@ import { onError } from "../libs/errorLib";
 
 
 export default function SuggestActivity() {
-    const fileName = useRef(""); 
+    const suggestionFileName = useRef(""); 
     const [activityName, setActivityName] = useState(""); 
     const [activityCategory, setActivityCategory] = useState(""); 
     const [activityHotness, setActivityHotness] = useState(false); 
@@ -37,7 +37,7 @@ export default function SuggestActivity() {
 
     // Change variable declaration to match API request keys
         const name = activityName; 
-        const fileName = fileName;
+        const fileName = suggestionFileName;
         const songLink = ""; 
         const cold = (activityColdness ? "Y" : "N");
         const hot = (activityHotness ? "Y" : "N");
