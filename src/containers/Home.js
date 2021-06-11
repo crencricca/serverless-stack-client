@@ -87,7 +87,7 @@ export default function Home() {
   function renderNotesList(notes) {
     return (
       <>
-        <Jumbotron fluid>
+        <Jumbotron fluid className="jumbo">
           <Container>
             <Row className="justify-content-md-end">
               <Col xs lg="2">
@@ -138,9 +138,9 @@ export default function Home() {
 
   function renderLander() {
     return (
-      <div className="lander">
-        <h1>Scratch</h1>
-        <p className="text-muted">A simple note taking app</p>
+      <div className="lander jumbo">
+        <h1>tahoe buddy</h1>
+        <p className="slogan">unsure what to do? we have your back</p>
       </div>
     );
   }
