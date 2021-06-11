@@ -26,3 +26,15 @@
 .Home .Card {
   min-height: 30%;
 }
+
+.Home .bg-1 {
+  background-color: #E3F5EE;
+}
+
+.Home .bg-2 {
+  background-color: #64BEC3;
+}
+
+.Home .bg-3 {
+  background-color: #005C70;
+}

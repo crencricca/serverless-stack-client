@@ -102,7 +102,7 @@ export default function Home() {
         </Jumbotron>
         <Container fluid>
             <CardDeck>
-            <Card className="bg-danger text-white">
+            <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
               <Card.Body>
                 <Card.Title>{activity.name}</Card.Title>
@@ -114,7 +114,7 @@ export default function Home() {
               </Card.Body>
             </Card>
 
-            <Card className="bg-info text-white">
+            <Card className="bg-2 text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
                 <Card.Title>{activity.name}</Card.Title>
@@ -125,7 +125,7 @@ export default function Home() {
                 <Button variant="light" onClick={loadActivity}>Refresh</Button>
               </Card.Body>
             </Card>
-            <Card className="text-white bg-warning">
+            <Card className="text-white bg-3">
               <Card.Body>
                 <Youtube embedId="rokGy0huYEA" />
               </Card.Body>
