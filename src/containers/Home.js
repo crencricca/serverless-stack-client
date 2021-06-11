@@ -8,6 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
 import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
+import config from "../config";
 
 export default function Home() {
   
@@ -34,13 +35,15 @@ export default function Home() {
   function loadActivity() {
     var t = (temp - 273.15) * (9/5) + 32;
     console.log(t);
-    return API.get("tahoe", `tahoe/tahoe-activities-1/${t}/Y`);
+    return API.get("tahoe", `/tahoe/tahoe-activities-1/${t}/Y`);
   }
 
   // This function loads the weather from the weather API.
   // TODO: take params
   function loadWeather() {
-    var url = "http://api.openweathermap.org/data/2.5/weather?zip=89451,US&appid=b0385345f7dde1e31b60ca3fe61aecec"
+    var base = "http://api.openweathermap.org/data/2.5/weather?zip=89451,US&appid="
+    var key = config.weather_api.key
+    var url = base+key
     var d
     var out = fetch(url)
       .then(response => response.json())
@@ -50,6 +53,9 @@ export default function Home() {
 
         d = JSON.stringify(res.main.temp)
         setTemp(d)
+
+        if (JSON.stringify(res.weather.main) === "Clear") setPrecip("N");
+        else setPrecip("Y");
       })
     return out;
   }
@@ -82,7 +88,7 @@ export default function Home() {
           <Container>
             <Row className="justify-content-md-end">
               <Col xs lg="2">
-                <h3> {stringify(weather.main.temp_min)}° K </h3>
+                <h3> {temp} ° K </h3>
               </Col>
             </Row>
             <Row className="justify-content-md-center">
