@@ -40,14 +40,7 @@ export default function Home() {
   function renderNotesList(notes) {
     return (
       <>
-        <LinkContainer to="/activities/new">
-          <ListGroup.Item action className="py-3 text-nowrap text-truncate">
-            <BsPencilSquare size={17} />
-            <span className="ml-2 font-weight-bold">Suggest a Resturant or Activity</span>
-          </ListGroup.Item>
-        </LinkContainer>
-    <p>{notes.name}</p>
-        <Jumbotron fluid>
+        <Jumbotron fluid className="jumbo">
           <Container>
             <Row className="justify-content-md-end">
               <Col xs lg="1">
@@ -123,7 +116,7 @@ export default function Home() {
 
   function renderLander() {
     return (
-      <div className="lander">
+      <div className="lander jumbo">
         <h1>tahoe buddy</h1>
         <p className="slogan">unsure what to do? we have your back</p>
       </div>
