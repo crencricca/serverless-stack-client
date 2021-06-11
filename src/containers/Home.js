@@ -10,13 +10,33 @@ import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bo
 import Youtube from '../components/Youtube';
 
 export default function Home() {
-  function loadNotes() {
-    return API.get("tahoe", `tahoe/tahoe-activities-1/65/Y`);
-  }
   
-  const [notes, setNotes] = useState([]);
+  const [temp, setTemp] = useState([65]);
+  const [precip, setPrecip] = useState([])
+  const [activity, setActivity] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
+
+  // This function loads an activity from the tahoe-activities-1 database.
+  // TODO: take params
+  function loadActivity() {
+    return API.get("tahoe", `tahoe/tahoe-activities-1/${temp}/Y`);
+  }
+
+  // This function loads the weather from the weather API.
+  // TODO: take params
+  function loadWeather() {
+    var url = "http://api.openweathermap.org/data/2.5/weather?zip=89451,US&appid=b0385345f7dde1e31b60ca3fe61aecec"
+    var d
+    var out = fetch(url)
+      .then(response => response.json())
+      .then(data =>  {
+        var res = data
+        d = JSON.stringify(res.main.temp)
+        setTemp(d);
+      })
+    return out;
+  }
 
   useEffect(() => {
     async function onLoad() {
@@ -25,8 +45,10 @@ export default function Home() {
       }
   
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const temp = await loadWeather();
+  
+        const activity = await loadActivity();
+        setActivity(activity);
       } catch (e) {
         onError(e);
       }
@@ -44,7 +66,7 @@ export default function Home() {
           <Container>
             <Row className="justify-content-md-end">
               <Col xs lg="1">
-                <h3> 65° </h3>
+                <h3> {temp} </h3>
               </Col>
             </Row>
             <Row className="justify-content-md-center">
@@ -77,7 +99,7 @@ export default function Home() {
                   Some quick example text to build on the card title and make up the bulk of
                   the card's content.
                 </Card.Text>
-                <Button variant="light">Refresh</Button>
+                <Button variant="light" onClick={loadActivity}>Refresh</Button>
               </Card.Body>
             </Card>
             <Card className="text-white bg-warning">
@@ -87,29 +109,6 @@ export default function Home() {
             </Card>
             </CardDeck>
         </Container>
-        {/* <LinkContainer fluid to="/activities/new">
-          <Row  className="justify-content-md-start fixed-bottom py-2 px-2">
-            <Col xs lg="3" >
-              <ListGroup.Item action className="py-3 text-nowrap text-truncate bg-light">
-                <BsPencilSquare size={17} />
-                <span className="ml-2 font-weight-bold">Suggest something!</span>
-              </ListGroup.Item>
-            </Col>
-            </Row>
-        </LinkContainer> */}
-        {/* {notes.map(({ name, content, createdAt }) => (
-          <LinkContainer key={name} to={`/notes/${name}`}>
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {content.trim().split("\n")[0]}
-              </span>
-              <br />
-              <span className="text-muted">
-                Created: {new Date(createdAt).toLocaleString()}
-              </span>
-            </ListGroup.Item>
-          </LinkContainer>
-        ))} */}
       </>
     );
   }
@@ -135,7 +134,7 @@ export default function Home() {
 
   return (
     <div className="Home">
-      {isAuthenticated ? renderNotesList(notes) : renderLander()}
+      {isAuthenticated ? renderNotesList(activity) : renderLander()}
     </div>
   );
 }
