@@ -32,7 +32,15 @@ export default function Home() {
       "really really good food", 
       "great bite for a great day", 
       "not as good as jimmy's cheeto shop",
-      "better than SNU dining food"
+      "better than SNU dining food",
+      "nevada's best!",
+      "i love it here!",
+      "ridgeline's favorite",
+      "proudly sponsored by ridgeline food co.", 
+      "tahoe buddy's favorite!",
+      "can't believe it's not butter!",
+      "definitely better than SNU dining food",
+      "even my mom said it's good"
     ];
 
    return foodCategoryTexts[foodVar];
@@ -46,7 +54,12 @@ export default function Home() {
       "could i venture to offer ${foodName} as the restaurant of choice today?",
       "what about some ${foodName} for lunch?",
       "have you checked out ${foodName} yet? no? today's the day!",
-      "haven't you been missing the food from ${foodName} recently?"
+      "haven't you been missing the food from ${foodName} recently?",
+      "man... i could really use some ${foodName} today...",
+      "jimmy's favorite food is definitely not ${foodName} but that's okay because he has bad taste.",
+      "i think ${foodName} is the best and you're objectively wrong if you disagree.",
+      "i'm a robot so obviously i can't say that i've had any of these before, but if i had to choose - it'd be ${foodName}",
+      "come one, come all, for we are getting ${foodName} today!"
     ];
 
     var text = foodDescriptionFillerTexts[foodVar];
@@ -59,7 +72,13 @@ export default function Home() {
       "hey, it's better than sitting at your desk...", 
       "to quote nike: just do it!",
       "don't forget to invite the interns!",
-      "you might need to change shoes for this"
+      "you might need to change shoes for this",
+      "make sure you're wearing clean socks!",
+      "personally, this is my favorite - even though i'm a robot",
+      "beats coding to me",
+      "proudly sponsored by ridgeline sports co",
+      "definitely not a security risk",
+      "wazzooo!"
     ];
 
    return activityCategoryTexts[actVar];
@@ -71,7 +90,15 @@ export default function Home() {
       "go get some friends! let's go to ${activityName} after work!", 
       "i haven't really gone to ${activityName} in a while...",
       "i normally hate to ${activityName} but i think it's the optimal choice for today!",
+      "i heard the interns are really good at ${activityName}...",
+      "great weather for some ${activityName} today, right?",
+      "coolest people in the coolest city going out to do ${activityName} today!",
+      "nothing i would rather do than ${activityName}",
+      "hop skip jump skip all the way to ${activityName}",
+      "i love it when my friends ask me to go ${activityName} with them! (none have asked me)",
+      "robots love ${activityName}! you should try it out today"
     ];
+
 
     var activityDescription = activityDescriptionFillerTexts[actVar]; 
     return activityDescription.replace("${activityName}", activity.name);
@@ -166,8 +193,8 @@ export default function Home() {
         const song = await loadSong();
         setSong(song);
 
-        setFoodVar(randomIntFromInterval(0, 3));
-        setActVar(randomIntFromInterval(0, 3));
+        setFoodVar(randomIntFromInterval(0, 11));
+        setActVar(randomIntFromInterval(0, 11));
       } catch (e) {
         console.log("erroring baby");
         onError(e);
@@ -190,11 +217,11 @@ export default function Home() {
       if (type === "activity") {
         const activity = await loadActivity();
         setActivity(activity);
-        setActVar(randomIntFromInterval(0, 3));
+        setActVar(randomIntFromInterval(0, 11));
       } else if (type === "food") {
         const food = await loadFood();
         setFood(food);
-        setFoodVar(randomIntFromInterval(0, 3));
+        setFoodVar(randomIntFromInterval(0, 11));
       } else {
         event.preventDefault();
         const song = await loadSong();
