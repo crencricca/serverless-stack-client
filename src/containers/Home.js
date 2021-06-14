@@ -9,13 +9,16 @@ import "./Home.css";
 import { FaSyncAlt } from 'react-icons/fa';
 import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
+import Weather from '../components/Weather';
 import config from "../config";
 
 export default function Home() {
   
   const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState([290]);
-  const [precip, setPrecip] = useState([])
+  const [max, setMax] = useState([290]);
+  const [min, setMin] = useState([280]);
+  const [cond, setCond] = useState(["Clear"])
   const [activity, setActivity] = useState([]);
   const [food, setFood] = useState([]);
   const { isAuthenticated } = useAppContext();
@@ -37,16 +40,12 @@ export default function Home() {
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadActivity() {
-    var t = (temp - 273.15) * (9/5) + 32;
-    console.log(t);
     return API.get("tahoe", `/tahoe/tahoe-activities-1/60/N`);
   }
 
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadFood() {
-    var t = (temp - 273.15) * (9/5) + 32;
-    console.log(t);
     return API.get("tahoe", `/tahoe/tahoe-food-1/60/Y`);
   }
 
@@ -60,14 +59,19 @@ export default function Home() {
     var out = fetch(url)
       .then(response => response.json())
       .then(data =>  {
-        var res = data
-        setWeather(res)
+        var res = data;
+        setWeather(res);
 
-        d = JSON.stringify(res.main.temp)
-        setTemp(d)
+        d = JSON.stringify(res.main.temp);
+        setTemp(d);
+        
+        setCond(res.weather[0].main);
 
-        if (JSON.stringify(res.weather.main) === "Clear") setPrecip("N");
-        else setPrecip("Y");
+        var high = parseInt((res.main.temp_max - 273.15) * (9/5) + 32);
+        var low = parseInt((res.main.temp_min - 273.15) * (9/5) + 32);
+      
+        setMax(JSON.stringify(high));
+        setMin(JSON.stringify(low));
       })
     return out;
   }
@@ -151,13 +155,13 @@ export default function Home() {
       <>
         <Jumbotron className="jumbo">
           <Container>
-            <Row className="justify-content-md-end">
+            {/* <Row className="justify-content-md-end">
               <Col xs lg="2">
                 <h3> {temp} ° K </h3>
               </Col>
-            </Row>
+            </Row> */}
             <Row className="justify-content-md-center">
-              <h1>Tahoe Buddy</h1>
+              <Weather cond={cond} max={max} min={min} />
             </Row>
 
           </Container>
@@ -176,7 +180,7 @@ export default function Home() {
               </Card.Body>
             </Card>
 
-            <Card className="bg-2 text-white">
+            <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
                 <Card.Title>{activity.name}</Card.Title>
