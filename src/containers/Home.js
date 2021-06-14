@@ -122,7 +122,7 @@ export default function Home() {
   function renderNotesList(notes) {
     return (
       <>
-        <Jumbotron fluid className="jumbo">
+        <Jumbotron className="jumbo">
           <Container>
             <Row className="justify-content-md-end">
               <Col xs lg="2">

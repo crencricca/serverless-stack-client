@@ -8,6 +8,7 @@ import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import { onError } from "./libs/errorLib";
+import { FaSmile, FaHiking } from 'react-icons/fa';
 
 function App() {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
@@ -41,11 +42,13 @@ function App() {
 
   return (
     !isAuthenticating && (
-      <div className="App container py-3">
-        <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+      <div className="App container py-3 bg-light">
+        <Navbar collapseOnSelect bg="light" expand="md" className="mb-2 bg-3">
           <LinkContainer to="/">
             <Navbar.Brand className="logo">
-              tb
+              tb 
+              <FaSmile className="icon" size={20} />
+              {/* <FaMountain /> */}
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle />
