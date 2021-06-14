@@ -70,11 +70,14 @@ export default function Home() {
 
   useEffect(() => {
     async function onLoad() {
+      console.log("in effect");
       if (!isAuthenticated) {
+        console.log("not auth");
         return;
       }
   
       try {
+        console.log("fetching weathe");
         const temp = await loadWeather();
         
         const activity = await loadActivity();
@@ -83,6 +86,7 @@ export default function Home() {
         const food = await loadFood();
         setFood(food);
       } catch (e) {
+        console.log("erroring baby");
         onError(e);
       }
   

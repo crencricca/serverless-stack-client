@@ -14,6 +14,32 @@
     border-color: #64BEC3;
   }
 
+  .btn-success, .btn-success {
+    color: #fff;
+    background-color: #64BEC3;
+    border-color: #64BEC3;
+}
+
+.btn-success:hover, .btn-success:hover {
+  color: #fff;
+  background-color: #64BEC3 !important;
+  border-color: #64BEC3 !important;
+}
+
+.btn-success.focus, .btn-success:focus {
+  color: #fff;
+  background-color: #64BEC3;
+  border-color: #64BEC3;
+  
+}
+
+.btn-success.focus:hover, .btn-success:focus:hover {
+  color: #fff;
+  background-color: #64BEC3 !important;
+  border-color: #64BEC3 !important;
+  
+}
+
   .form-label {
     color: #005157;
   }

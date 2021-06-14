@@ -137,7 +137,7 @@ export default function Signup() {
   }
 
   return (
-    <div className="Signup">
+    <div className="signup">
       {newUser === null ? renderForm() : renderConfirmationForm()}
     </div>
   );

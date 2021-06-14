@@ -10,7 +10,8 @@
 }
 
 .Home .lander .slogan{
-  color: #005157
+  color: #64BEC3;
+  font-weight: 700;
 }
 
 .Home .jumbo {
@@ -38,4 +39,8 @@
 
 .Home .bg-3 {
   background-color: #005C70;
+}
+
+.Home .slogan {
+  color: #64BEC3;
 }

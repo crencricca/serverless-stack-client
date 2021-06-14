@@ -8,6 +8,7 @@
     color: #A63B00;
 }
 
+
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
   color: #A63B00;
 }
@@ -33,3 +34,4 @@ html,body{
   margin-left: 5px;
   margin-top:-1px;
 }
+
