@@ -9,6 +9,7 @@ import "./Home.css";
 import { FaSyncAlt } from 'react-icons/fa';
 import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
+import Weather from '../components/Weather';
 import config from "../config";
 
 export default function Home() {
@@ -130,7 +131,7 @@ export default function Home() {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <h1>Tahoe Buddy</h1>
+              <Weather />
             </Row>
 
           </Container>
