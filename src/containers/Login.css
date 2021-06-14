@@ -10,8 +10,8 @@
 
     .btn-primary.disabled, .btn-primary:disabled {
       color: #fff;
-      background-color: #64BEC3;
-      border-color: #64BEC3;
+      background-color: #A63B00;
+      border-color: #A63B00;
     }
     .form-label {
       color: #005157;
@@ -19,13 +19,13 @@
 
     .btn-primary {
       color: #fff;
-      background-color: #64BEC3;
-      border-color: #64BEC3;
+      background-color: #A63B00;
+      border-color: #A63B00;
     }
 
     .btn-primary:hover {
       color: #fff;
-      background-color: #64BEC3 !important;
-      border-color: #64BEC3 !important;
+      background-color: #A63B00 !important;
+      border-color: #A63B00 !important;
     }
   }
