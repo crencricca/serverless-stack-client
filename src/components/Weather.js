@@ -1,17 +1,17 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { FaCloud, FaMapMarkerAlt, FaSun } from "react-icons/fa";
-import { BiBrightness } from "react-icons/bi";
+import { FaCloud, FaMapMarkerAlt, FaSun, FaCloudShowersHeavy, FaSnowflake, FaRegSnowflake } from "react-icons/fa";
+import { BiBrightness, BiCloudRain, BiCloudSnow, BiCloudLightRain, BiCloudDrizzle } from "react-icons/bi";
 import "./Weather.css";
-import { BsFillBrightnessAltHighFill } from "react-icons/bs";
-import { BsCloudFill } from "react-icons/bs";
+import { BsFillBrightnessAltHighFill, BsCloudFill, BsSoundwave } from "react-icons/bs";
+import { FaCloudRain } from "react-icons/fa";
 
 
 
 export default function LoaderButton({
   isLoading,
   className = "",
-  precip = false,
+  cond = "Clear",
   max = 290,
   min = 280,
   disabled = false,
@@ -30,8 +30,10 @@ export default function LoaderButton({
             </Col>
             <br></br>
             <Col xs lg={4} className="justify-content-md-center text-center">
-                {!precip && <BsFillBrightnessAltHighFill className="iconL" size={80}/>}
-                {precip && <BsCloudFill className="iconL" size={80}/>}
+                {cond === "Clear" && <BsFillBrightnessAltHighFill className="iconL" size={80}/>}
+                {cond === "Clouds" && <BsCloudFill className="iconL" size={80}/>}
+                {cond === "Rain" && <BiCloudRain className="iconL" size={80}/>}
+                {cond === "Snow" && <BiCloudSnow className="iconL" size={80}/>}
                 <h4>
                     {max} °K / {min} °K 
                 </h4>

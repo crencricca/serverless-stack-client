@@ -18,7 +18,7 @@ export default function Home() {
   const [temp, setTemp] = useState([290]);
   const [max, setMax] = useState([290]);
   const [min, setMin] = useState([280]);
-  const [precip, setPrecip] = useState([false])
+  const [cond, setCond] = useState(["Clear"])
   const [activity, setActivity] = useState([]);
   const [food, setFood] = useState([]);
   const { isAuthenticated } = useAppContext();
@@ -64,10 +64,9 @@ export default function Home() {
 
         d = JSON.stringify(res.main.temp);
         setTemp(d);
-
-        if (JSON.stringify(res.weather.main) === "Clear") setPrecip(false);
-        else setPrecip(true);
-
+        
+        setCond(res.weather[0].main);
+      
         setMax(JSON.stringify(res.main.temp_max));
         setMin(JSON.stringify(res.main.temp_min));
       })
@@ -82,7 +81,6 @@ export default function Home() {
   
       try {
         const temp = await loadWeather();
-        console.log("hello");
         
         const activity = await loadActivity();
         setActivity(activity);
@@ -137,7 +135,7 @@ export default function Home() {
               </Col>
             </Row> */}
             <Row className="justify-content-md-center">
-              <Weather precip={precip} max={max} min={min} />
+              <Weather cond={cond} max={max} min={min} />
             </Row>
 
           </Container>
