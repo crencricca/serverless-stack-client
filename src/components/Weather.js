@@ -1,12 +1,17 @@
 import React from "react";
 import { Row, Col, Container } from "react-bootstrap";
-import { FaCloud, FaMapMarkerAlt } from "react-icons/fa";
+import { FaCloud, FaMapMarkerAlt, FaSun } from "react-icons/fa";
+import { BiBrightness } from "react-icons/bi";
 import "./Weather.css";
+import { BsFillBrightnessAltHighFill } from "react-icons/bs";
+import { BsCloudFill } from "react-icons/bs";
+
+
 
 export default function LoaderButton({
   isLoading,
   className = "",
-  clear = true,
+  precip = false,
   max = 290,
   min = 280,
   disabled = false,
@@ -25,11 +30,13 @@ export default function LoaderButton({
             </Col>
             <br></br>
             <Col xs lg={4} className="justify-content-md-center text-center">
-            <FaCloud className="iconL" size={80}/>
+                {!precip && <BsFillBrightnessAltHighFill className="iconL" size={80}/>}
+                {precip && <BsCloudFill className="iconL" size={80}/>}
                 <h4>
                     {max} °K / {min} °K 
                 </h4>
             </Col>
+            <Col xs lg={2}></Col>
         </Row>
         <Row className="justify-content-md-center" xs lg={3}>
         </Row>

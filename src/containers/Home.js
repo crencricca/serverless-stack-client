@@ -16,7 +16,9 @@ export default function Home() {
   
   const [weather, setWeather] = useState([]);
   const [temp, setTemp] = useState([290]);
-  const [precip, setPrecip] = useState([])
+  const [max, setMax] = useState([290]);
+  const [min, setMin] = useState([280]);
+  const [precip, setPrecip] = useState([false])
   const [activity, setActivity] = useState([]);
   const [food, setFood] = useState([]);
   const { isAuthenticated } = useAppContext();
@@ -57,14 +59,17 @@ export default function Home() {
     var out = fetch(url)
       .then(response => response.json())
       .then(data =>  {
-        var res = data
-        setWeather(res)
+        var res = data;
+        setWeather(res);
 
-        d = JSON.stringify(res.main.temp)
-        setTemp(d)
+        d = JSON.stringify(res.main.temp);
+        setTemp(d);
 
-        if (JSON.stringify(res.weather.main) === "Clear") setPrecip("N");
-        else setPrecip("Y");
+        if (JSON.stringify(res.weather.main) === "Clear") setPrecip(false);
+        else setPrecip(true);
+
+        setMax(JSON.stringify(res.main.temp_max));
+        setMin(JSON.stringify(res.main.temp_min));
       })
     return out;
   }
@@ -132,7 +137,7 @@ export default function Home() {
               </Col>
             </Row> */}
             <Row className="justify-content-md-center">
-              <Weather />
+              <Weather precip={precip} max={max} min={min} />
             </Row>
 
           </Container>
@@ -154,7 +159,7 @@ export default function Home() {
               </Card.Body>
             </Card>
 
-            <Card className="bg-2 text-white">
+            <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
                 <Card.Title>{activity.name}</Card.Title>
