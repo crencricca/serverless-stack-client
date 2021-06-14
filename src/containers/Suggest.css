@@ -4,3 +4,14 @@
     padding-left: 5%; 
     padding-right: 20%; 
 }
+
+.display-4{
+    font-family: "Quicksand", sans-serif;
+}
+
+.btn-lg{
+    font-family: "Quicksand", sans-serif;
+    color: #fff;
+    background-color: #64BEC3;
+    border-color: #64BEC3;
+}

@@ -80,15 +80,15 @@ export default function SuggestActivity() {
 
     return (
         <Jumbotron>
-                <h1> suggest an activity </h1>
-                <p class="lead">fill out the fields below to have your suggestion added to our database!</p>
+                <h1 className ="suggestion-title"> suggest an activity </h1>
+                <p className="lead">fill out the fields below to have your suggestion added to our database!</p>
                 <hr></hr>
                 <div className = "Activity Suggestion"> 
                     <Form onSubmit = {submitForm}> 
 
 
                         <Form.Group controlId="ActivityName">
-                            <Form.Label> 1. what do you suggest we do?</Form.Label> 
+                            <Form.Label className = "suggestion-title"> 1. what do you suggest we do?</Form.Label> 
                             <Form.Control 
                                 value = {activityName}
                                 type="text"
@@ -98,7 +98,7 @@ export default function SuggestActivity() {
                         </Form.Group>
 
                         <Form.Group controlId="ActivityCateogory">
-                            <Form.Label> 2. what kind of activity is this?</Form.Label> 
+                            <Form.Label className = "suggestion-title"> 2. what kind of activity is this?</Form.Label> 
                             <Form.Control 
                                 value = {activityCategory}
                                 type="text"
@@ -108,7 +108,7 @@ export default function SuggestActivity() {
                         </Form.Group>
                         <hr></hr>
 
-                        <p class = 'lead'> and you'd do this... </p>
+                        <p className = 'lead'> and you'd do this... </p>
                         <Form.Group controlId="activityHotness">
                             <Form.Check 
                                 type="checkbox" 
@@ -130,7 +130,7 @@ export default function SuggestActivity() {
 
                         </Form.Group>
 
-                        <p class = 'lead'> how about when it's ... </p>
+                        <p className = 'lead'> how about when it's ... </p>
 
 
                         <Form.Group controlId="activityWeather">

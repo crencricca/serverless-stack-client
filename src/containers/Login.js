@@ -40,7 +40,7 @@ export default function Login() {
     <div className="Login">
       <Form onSubmit={handleSubmit}>
         <Form.Group size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
+          <Form.Label>email</Form.Label>
           <Form.Control
             autoFocus
             type="email"
@@ -49,7 +49,7 @@ export default function Login() {
           />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>password</Form.Label>
           <Form.Control
             type="password"
             value={fields.password}
@@ -63,7 +63,7 @@ export default function Login() {
           isLoading={isLoading}
           disabled={!validateForm()}
         >
-          Login
+          login
         </LoaderButton>
       </Form>
     </div>

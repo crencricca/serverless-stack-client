@@ -1,0 +1,13 @@
+.btn-lg{
+    font-family: "Quicksand", sans-serif;
+    color: #fff;
+    background-color: #64BEC3;
+    border-color: #64BEC3;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    font-family: "Quicksand", sans-serif;
+    color: #fff;
+    background-color: #64BEC3;
+    border-color: #64BEC3;
+}

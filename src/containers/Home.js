@@ -38,7 +38,7 @@ export default function Home() {
     return API.get("tahoe", `/tahoe/tahoe-activities-1/60/N`);
   }
 
-  // This function loads an activity from the tahoe-activities-1 database.
+  // This function loads an activity from the tahoe-food-1 database.
   // TODO: take params
   function loadFood() {
     var t = (temp - 273.15) * (9/5) + 32;
@@ -71,18 +71,21 @@ export default function Home() {
   useEffect(() => {
     async function onLoad() {
       if (!isAuthenticated) {
+        console.log("not authenticated")
         return;
       }
   
       try {
+        console.log("before weather");
         const temp = await loadWeather();
-        
         const activity = await loadActivity();
         setActivity(activity);
 
         const food = await loadFood();
+        console.log("food", food);
         setFood(food);
       } catch (e) {
+        console.log("erroring")
         onError(e);
       }
   
