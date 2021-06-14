@@ -1,11 +1,12 @@
 import API from "@aws-amplify/api";
-import React, { useState, useRef } from "react"; 
+import React, { useState, useEffect, useRef } from "react"; 
 import LoaderButton from "../components/LoaderButton";
 import Form from "react-bootstrap/Form"; 
 import "./SuggestSong.css"; 
 import { Jumbotron } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
+import config from "../config";
 
 
 export default function Suggestsong() {
@@ -18,6 +19,8 @@ export default function Suggestsong() {
     const [songTemperateness, setsongTemperatness] = useState(false); 
     const [songRainyness, setsongRainyness] = useState(false); 
     const [songSnowyness, setsongSnowyness] = useState(false); // we don't use as of now
+    const [songValid, setsongValid] = useState(false); //
+
 
     const [isLoading, setIsLoading] = useState(false);
     const history = useHistory(); 
@@ -27,8 +30,69 @@ export default function Suggestsong() {
         const nameCheck = songName.length > 0 & songCategory.length > 0;
         const heatCheck = songHotness || songColdness || songTemperateness; 
         const weatherCheck = songRainyness || songSnowyness; 
-        return nameCheck && heatCheck; 
+        const songCheck = songValid;
+        return nameCheck && heatCheck && songCheck; 
+    }
+        
+    // start url verification
+    function get_url_id(url) {
+        if (url.length < 34) {
+            return "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
         }
+    
+        var split_link = "watch?v="
+        var split_list = "&list"
+    
+        var res1 = url.split(split_link)[1]
+        var new_url = res1.split(split_list)[0];
+    
+        return new_url
+    }
+    function validateSongURL(songLink) {
+        console.log("url is",songLink)
+        var vid_id = get_url_id(songLink)
+        var url_base = "https://www.googleapis.com/youtube/v3/videos?part=id&id="
+        var follow = "&key="
+        var api_key = config.youtube_api.key
+        var url = url_base + vid_id + follow + api_key
+    
+        var error = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    
+        var d
+        var output
+        var out = fetch(url)
+            .then(response => response.json())
+            .then(data =>  {
+                var res = data
+    
+                d = JSON.stringify(res.pageInfo.totalResults)    
+                if (JSON.stringify(res.pageInfo.totalResults) == 1) {
+                    console.log("good is:",songLink)
+                    output = songLink
+                    setSongLink(output)
+                    setsongValid(true)
+                    return output
+                } else if (JSON.stringify(res.pageInfo.totalResults) == 0)  {
+                    console.log("error is:",error)
+                    output = error
+                    setSongLink(output)
+                    return output
+                }
+            })
+        console.log("output is",output)
+        return output
+    }
+    useEffect((songLink) => {
+        async function onLoad() {
+            try {
+                const suggestionSongLink = await validateSongURL(songLink);
+            } catch (e) {
+                //onError(e);
+            }
+        }
+        onLoad();
+    },[]); // only update hook when authenticated value changes
+
 
     /**
      * API Call requires: 
@@ -62,6 +126,8 @@ export default function Suggestsong() {
                 precip 
             }); 
             history.push("/suggestion/another");
+            console.log("final youtube is:",songLink)
+
         }
 
         catch (e) {
@@ -109,10 +175,10 @@ export default function Suggestsong() {
                         <Form.Group controlId="songCateogory">
                             <Form.Label> 3. what's the youtube link for this song? </Form.Label> 
                             <Form.Control 
-                                value = {suggestionSongLink}
                                 type="text"
-                                placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-                                onChange={(e) => setSongLink(e.target.value)}
+                                placeholder="Rick Roll"
+                                onChange={(e) => validateSongURL(e.target.value)}
+
                             /> 
                         </Form.Group>
                         <hr></hr>
