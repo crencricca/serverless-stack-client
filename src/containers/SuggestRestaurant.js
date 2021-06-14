@@ -24,7 +24,10 @@ export default function SuggestRestaurant() {
     const TABLE_NAME = 'tahoe-food-1'
 
     function validateForm() {
-        return restaurantName.length > 0 & restaurantCategory.length > 0; 
+        const nameCheck = restaurantName.length > 0 & restaurantCategory.length > 0;
+        const heatCheck = restaurantHotness || restaurantColdness || restaurantTemperateness; 
+        const weatherCheck = restaurantRainyness || restaurantSnowyness; 
+        return nameCheck && heatCheck && weatherCheck; 
     }
 
     function handleFileChange(event) {
