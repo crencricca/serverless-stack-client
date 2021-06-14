@@ -120,18 +120,20 @@ export default function Home() {
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadActivity() {
-    return API.get("tahoe", `/tahoe/tahoe-activities-1/60/N`);
+    var precip = (cond === "Rain") ? "Y" : "N";
+    return API.get("tahoe", `/tahoe/tahoe-activities-1/${temp}/${precip}`);
   }
 
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadFood() {
-    return API.get("tahoe", `/tahoe/tahoe-food-1/60/Y`);
+    var precip = (cond === "Rain") ? "Y" : "N";
+    return API.get("tahoe", `/tahoe/tahoe-food-1/${temp}/${precip}`);
   }
 
   function loadSong() {
-    //console.log("song API call",API.get("tahoe", `/tahoe/tahoe-songs-1/60/Y`));
-    return API.get("tahoe", `/tahoe/tahoe-songs-1/60/Y`);
+    var precip = (cond === "Rain") ? "Y" : "N";
+    return API.get("tahoe", `/tahoe/tahoe-songs-1/${temp}/${precip}`);
   }
   function get_url_id(url) {
     if (!url || url.length < 34) {
