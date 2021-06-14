@@ -12,13 +12,14 @@ export default function Youtube({
 }) {
   return (
     <div id="video">
-        <iframe
+        <iframe className="mx-auto my-auto h-100 w-100"
             width="400"
-            height="250"
+            height="350"
             src={`https://www.youtube.com/embed/${embedId}`}
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            volume="0"
             title="Embedded youtube"
         />
     </div>

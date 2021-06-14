@@ -252,8 +252,10 @@ export default function Home() {
                 <h3> {temp} ° K </h3>
               </Col>
             </Row> */}
-            <Row className="justify-content-md-center">
+            <Row fluid className="justify-content-md-center">
+              <Col xs lg={9}>
               <Weather cond={cond} max={max} min={min} />
+              </Col>
             </Row>
 
           </Container>

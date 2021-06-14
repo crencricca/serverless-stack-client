@@ -20,15 +20,6 @@ export default function LoaderButton({
   return (
     <Container fluid className="Weather">
         <Row>
-            <Col xs lg={2}></Col>
-            <Col xs lg={4} >
-                <h1>Incline Village, NV</h1>
-                <h4>
-                    <FaMapMarkerAlt className="iconL" size={20} />
-                    89450 
-                </h4>
-            </Col>
-            <br></br>
             <Col xs lg={4} className="justify-content-md-center text-center">
                 {cond === "Clear" && <BsFillBrightnessAltHighFill className="icon" size={80}/>}
                 {cond === "Clouds" && <BsCloudFill className="icon" size={80}/>}
@@ -38,6 +29,14 @@ export default function LoaderButton({
                     {max}° F / {min}° F 
                 </h4>
             </Col>
+            <Col xs lg={6} className="mx-auto my-auto text-center">
+                <h1>Incline Village, NV</h1>
+                <h4>
+                    <FaMapMarkerAlt className="weatherIcon" size={20} />
+                    89450 
+                </h4>
+            </Col>
+            <br></br>
             <Col xs lg={2}></Col>
         </Row>
         <Row className="justify-content-md-center" xs lg={3}>
