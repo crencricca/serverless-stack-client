@@ -137,7 +137,7 @@ export default function Home() {
       }
   
       try {
-        console.log("fetching weathe");
+        console.log("fetching weather");
         const temp = await loadWeather();
         
         const activity = await loadActivity();
@@ -208,7 +208,7 @@ export default function Home() {
         <Container fluid>
             <CardDeck>
             <Card className="bg-3 text-white">
-            <Card.Header className="bg-1">
+            <Card.Header className="bg-1 card-header">
                   <Row className="text-center mx-auto w-100">
                     <Col xs lg={12}>
                     <p>{getFoodCardDescription()}</p>
@@ -250,7 +250,7 @@ export default function Home() {
             </Card>
 
             <Card className="bg-3 text-white">
-            <Card.Header className="bg-1">
+            <Card.Header className="bg-1 card-header">
                   <Row className="text-center mx-auto w-100">
                     <Col xs lg={12}>
                     <p>{getActivityCardDescription()}</p>

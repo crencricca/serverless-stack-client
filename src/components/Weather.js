@@ -30,10 +30,10 @@ export default function LoaderButton({
             </Col>
             <br></br>
             <Col xs lg={4} className="justify-content-md-center text-center">
-                {cond === "Clear" && <BsFillBrightnessAltHighFill className="iconL" size={80}/>}
-                {cond === "Clouds" && <BsCloudFill className="iconL" size={80}/>}
-                {cond === "Rain" && <BiCloudRain className="iconL" size={80}/>}
-                {cond === "Snow" && <BiCloudSnow className="iconL" size={80}/>}
+                {cond === "Clear" && <BsFillBrightnessAltHighFill className="icon" size={80}/>}
+                {cond === "Clouds" && <BsCloudFill className="icon" size={80}/>}
+                {cond === "Rain" && <BiCloudRain className="icon" size={80}/>}
+                {cond === "Snow" && <BiCloudSnow className="icon" size={80}/>}
                 <h4>
                     {max}° F / {min}° F 
                 </h4>
