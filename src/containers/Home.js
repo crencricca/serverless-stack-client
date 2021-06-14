@@ -77,6 +77,7 @@ export default function Home() {
   
       try {
         const temp = await loadWeather();
+        console.log("hello");
         
         const activity = await loadActivity();
         setActivity(activity);
@@ -125,11 +126,11 @@ export default function Home() {
       <>
         <Jumbotron className="jumbo">
           <Container>
-            <Row className="justify-content-md-end">
+            {/* <Row className="justify-content-md-end">
               <Col xs lg="2">
                 <h3> {temp} ° K </h3>
               </Col>
-            </Row>
+            </Row> */}
             <Row className="justify-content-md-center">
               <Weather />
             </Row>
