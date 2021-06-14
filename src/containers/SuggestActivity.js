@@ -25,7 +25,11 @@ export default function SuggestActivity() {
     const TABLE_NAME = 'tahoe-activities-1'
 
     function validateForm() {
-        return activityName.length > 0 & activityCategory.length > 0; 
+        const activityNameCheck = activityName.length > 0; 
+        const activityCategoryCheck = activityCategory.length > 0; 
+        const temperatureCheck = activityColdness || activityHotness || activityTemperateness;
+        const weatherCheck = activityRainyness || activitySnowyness;  
+        return activityNameCheck && activityCategoryCheck && temperatureCheck && weatherCheck; 
     }
 
     function handleFileChange(event) {
