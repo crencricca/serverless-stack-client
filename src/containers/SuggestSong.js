@@ -37,7 +37,7 @@ export default function Suggestsong() {
         setIsLoading(true);
 
     // Change variable declaration to match API request keys
-        const name = songName; 
+        const name = songName.toLowerCase(); 
         const description = songCategory;
         const fileName = suggestionFileName; 
         const songLink = suggestionSongLink; 

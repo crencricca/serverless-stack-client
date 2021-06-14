@@ -42,7 +42,7 @@ export default function SuggestRestaurant() {
         setIsLoading(true);
 
     // Change variable declaration to match API request keys
-        const name = restaurantName; 
+        const name = restaurantName.toLowerCase(); 
         const description = restaurantCategory;
         const songLink = ""; 
         const cold = (restaurantColdness ? "Y" : "N");

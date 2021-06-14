@@ -42,7 +42,7 @@ export default function SuggestActivity() {
         setIsLoading(true);
 
     // Change variable declaration to match API request keys
-        const name = activityName; 
+        const name = activityName.toLowerCase(); 
         const description = activityCategory; 
         const songLink = ""; 
         const cold = (activityColdness ? "Y" : "N");
