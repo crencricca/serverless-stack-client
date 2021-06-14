@@ -42,7 +42,10 @@ export default function Home() {
       "seems like today's weather calls for some ${foodName}... go grab some friends and head out!",
       "wouldn't want to have anything besides some ${foodName} today - why don't you get it for lunch?",
       "have you had ${foodName} recently? seems like a good idea to get for lunch today!", 
-      "could i venture to offer ${foodName} as the restaurant of choice today?"
+      "could i venture to offer ${foodName} as the restaurant of choice today?",
+      "what about some ${foodName} for lunch?",
+      "have you checked out ${foodName} yet? no? today's the day!",
+      "haven't you been missing the food from ${foodName} recently?"
     ];
 
     var text = foodDescriptionFillerTexts[foodVar];
@@ -54,7 +57,8 @@ export default function Home() {
       "this is probably the best suggestion in here", 
       "hey, it's better than sitting at your desk...", 
       "to quote nike: just do it!",
-      "don't forget to invite the interns!"
+      "don't forget to invite the interns!",
+      "you might need to change shoes for this"
     ];
 
    return activityCategoryTexts[actVar];
@@ -62,10 +66,10 @@ export default function Home() {
 
   function getActivityCardDescription() {
     const activityDescriptionFillerTexts = [
-      "beautiful day to go ${activityName}, isn't it?",
-      "go get some friends! let's go ${activityName} after work!", 
-      "i haven't really gone ${activityName} in a while...",
-      "i normally hate ${activityName} but i think it's the optimal choice for today!",
+      "beautiful day to go to ${activityName}, isn't it?",
+      "go get some friends! let's go to ${activityName} after work!", 
+      "i haven't really gone to ${activityName} in a while...",
+      "i normally hate to ${activityName} but i think it's the optimal choice for today!",
     ];
 
     var activityDescription = activityDescriptionFillerTexts[actVar]; 
