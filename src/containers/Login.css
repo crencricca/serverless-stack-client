@@ -16,4 +16,16 @@
     .form-label {
       color: #005157;
     }
+
+    .btn-primary {
+      color: #fff;
+      background-color: #64BEC3;
+      border-color: #64BEC3;
+    }
+
+    .btn-primary:hover {
+      color: #fff;
+      background-color: #64BEC3 !important;
+      border-color: #64BEC3 !important;
+    }
   }

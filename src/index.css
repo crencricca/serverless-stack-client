@@ -25,3 +25,7 @@ input.form-control {
 input[type=file] {
   width: 100%;
 }
+
+* {
+  cursor: 'url(favicon-16x16.png)', auto;
+}

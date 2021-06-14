@@ -34,6 +34,7 @@ function App() {
   }
 
   async function handleLogout() {
+    console.log("logging out")
     await Auth.signOut();
   
     userHasAuthenticated(false);
