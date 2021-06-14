@@ -143,6 +143,14 @@ export default function Home() {
     "have you had ${foodName} recently? seems like a good idea to get for lunch today!", 
     "could i venture to offer ${foodName} as the restaurant of choice today?"
   ]
+
+  const activityDescriptionFillerTexts = [
+    "beautiful day to go ${activityName}, isn't it?",
+    "go get some friends! let's go ${activityName} after work!", 
+    "i haven't really gone ${activityName} in a while...",
+    "i normally hate ${activityName} but i think it's the optimal choice for today!",
+  ]
+
   function renderNotesList(notes) {
 
     const foodCategory = foodCategoryTexts[randomIntFromInterval(0, 3)];
@@ -150,7 +158,10 @@ export default function Home() {
     const foodCardTitle = "${foodName} - ${foodCategory}".replace("${foodName}", food.name).replace("${foodCategory}", foodCategory); 
     const foodCardDescription = foodDescription.replace("${foodName}", food.name); 
 
-
+    const activityName = activity.name; 
+    const activityDescription = activityDescriptionFillerTexts[randomIntFromInterval(0, 3)]; 
+    const activityCardTitle = "${activityName}".replace("${activityName}", activityName); 
+    const activityCardDescription = activityDescription.replace("${activityName}", activityName);
     return (
       <>
         <Jumbotron className="jumbo">
@@ -183,11 +194,8 @@ export default function Home() {
             <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./rl.png" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{activity.name}</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up the bulk of
-                  the card's content.
-                </Card.Text>
+                <Card.Title>{activityCardTitle}</Card.Title>
+                <Card.Text> {activityCardDescription} </Card.Text>
                   <Row className="justify-content-md-end">
                   <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "activity")} >
                   <FaSyncAlt size={25} /></Button>
