@@ -30,6 +30,10 @@ export default function Home() {
     }
   }
 
+  function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadActivity() {
@@ -123,7 +127,26 @@ export default function Home() {
     setIsLoading(false);
   }
 
+  const foodCategoryTexts = [
+    "really really good food", 
+    "great bite for a great day", 
+    "not as good as jimmy's cheeto shop",
+    "better than SNU dining food"
+  ]
+  const foodDescriptionFillerTexts = [
+    "seems like today's weather calls for some ${foodName}... go grab some friends and head out!",
+    "wouldn't want to have anything besides some ${foodName} today - why don't you get it for lunch?",
+    "have you had ${foodName} recently? seems like a good idea to get for lunch today!", 
+    "could i venture to offer ${foodName} as the restaurant of choice today?"
+  ]
   function renderNotesList(notes) {
+
+    const foodCategory = foodCategoryTexts[randomIntFromInterval(0, 3)];
+    const foodDescription = foodDescriptionFillerTexts[randomIntFromInterval(0, 3)];
+    const foodCardTitle = "${foodName} - ${foodCategory}".replace("${foodName}", food.name).replace("${foodCategory}", foodCategory); 
+    const foodCardDescription = foodDescription.replace("${foodName}", food.name); 
+
+
     return (
       <>
         <Jumbotron className="jumbo">
@@ -144,11 +167,8 @@ export default function Home() {
             <Card className="bg-3 text-white">
               <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
               <Card.Body>
-                <Card.Title>{food.name}</Card.Title>
-                <Card.Text>
-                  Some quick example text to build on the card title and make up the bulk of
-                  the card's content.
-                </Card.Text>
+                <Card.Title> {foodCardTitle} </Card.Title>
+                <Card.Text> {foodCardDescription} </Card.Text>
                 <Row className="justify-content-md-end">
                   <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "food")} >
                   <FaSyncAlt size={25} /></Button>
