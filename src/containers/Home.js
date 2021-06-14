@@ -6,7 +6,7 @@ import { API } from "aws-amplify";
 import { BsPencilSquare } from "react-icons/bs";
 import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
-import { FaSyncAlt } from 'react-icons/fa';
+import { FaSyncAlt, FaUtensils, FaHiking } from 'react-icons/fa';
 import { Jumbotron, Container, Row, Col, Card, Button, CardDeck } from "react-bootstrap";
 import Youtube from '../components/Youtube';
 import Weather from '../components/Weather';
@@ -23,6 +23,54 @@ export default function Home() {
   const [food, setFood] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
+  const [foodVar, setFoodVar] = useState([0]);
+  const [actVar, setActVar] = useState([0]);
+
+  function getFoodCardTitle() {
+    const foodCategoryTexts = [
+      "really really good food", 
+      "great bite for a great day", 
+      "not as good as jimmy's cheeto shop",
+      "better than SNU dining food"
+    ];
+
+   return foodCategoryTexts[foodVar];
+  }
+
+  function getFoodCardDescription() {
+    const foodDescriptionFillerTexts = [
+      "seems like today's weather calls for some ${foodName}... go grab some friends and head out!",
+      "wouldn't want to have anything besides some ${foodName} today - why don't you get it for lunch?",
+      "have you had ${foodName} recently? seems like a good idea to get for lunch today!", 
+      "could i venture to offer ${foodName} as the restaurant of choice today?"
+    ];
+
+    var text = foodDescriptionFillerTexts[foodVar];
+    return text.replace("${foodName}", food.name); 
+  }
+
+  function getActivityCardTitle() {
+    const activityCategoryTexts = [
+      "this is probably the best suggestion in here", 
+      "hey, it's better than sitting at your desk...", 
+      "to quote nike: just do it!",
+      "don't forget to invite the interns!"
+    ];
+
+   return activityCategoryTexts[actVar];
+  }
+
+  function getActivityCardDescription() {
+    const activityDescriptionFillerTexts = [
+      "beautiful day to go ${activityName}, isn't it?",
+      "go get some friends! let's go ${activityName} after work!", 
+      "i haven't really gone ${activityName} in a while...",
+      "i normally hate ${activityName} but i think it's the optimal choice for today!",
+    ];
+
+    var activityDescription = activityDescriptionFillerTexts[actVar]; 
+    return activityDescription.replace("${activityName}", activity.name);
+  }
 
   function stringify(d) {
     if (d != undefined) {
@@ -80,7 +128,7 @@ export default function Home() {
     async function onLoad() {
       console.log("in effect");
       if (!isAuthenticated) {
-        console.log("not auth");
+        console.log("not auth"); //this auth flag us broken sometimes 
         return;
       }
   
@@ -93,6 +141,9 @@ export default function Home() {
 
         const food = await loadFood();
         setFood(food);
+
+        setFoodVar(randomIntFromInterval(0, 3));
+        setActVar(randomIntFromInterval(0, 3));
       } catch (e) {
         console.log("erroring baby");
         onError(e);
@@ -108,20 +159,18 @@ export default function Home() {
     if (!isAuthenticated) {
       return;
     }
-
+    event.preventDefault();
     setIsLoading(true);
 
     try {
       if (type === "activity") {
-        event.preventDefault();
-
         const activity = await loadActivity();
         setActivity(activity);
-      } else {
-        event.preventDefault();
-
+        setActVar(randomIntFromInterval(0, 3));
+      } else if (type === "food") {
         const food = await loadFood();
         setFood(food);
+        setFoodVar(randomIntFromInterval(0, 3));
       }
       
     } catch (e) {
@@ -131,37 +180,12 @@ export default function Home() {
     setIsLoading(false);
   }
 
-  const foodCategoryTexts = [
-    "really really good food", 
-    "great bite for a great day", 
-    "not as good as jimmy's cheeto shop",
-    "better than SNU dining food"
-  ]
-  const foodDescriptionFillerTexts = [
-    "seems like today's weather calls for some ${foodName}... go grab some friends and head out!",
-    "wouldn't want to have anything besides some ${foodName} today - why don't you get it for lunch?",
-    "have you had ${foodName} recently? seems like a good idea to get for lunch today!", 
-    "could i venture to offer ${foodName} as the restaurant of choice today?"
-  ]
-
-  const activityDescriptionFillerTexts = [
-    "beautiful day to go ${activityName}, isn't it?",
-    "go get some friends! let's go ${activityName} after work!", 
-    "i haven't really gone ${activityName} in a while...",
-    "i normally hate ${activityName} but i think it's the optimal choice for today!",
-  ]
-
   function renderNotesList(notes) {
 
-    const foodCategory = foodCategoryTexts[randomIntFromInterval(0, 3)];
-    const foodDescription = foodDescriptionFillerTexts[randomIntFromInterval(0, 3)];
-    const foodCardTitle = "${foodName} - ${foodCategory}".replace("${foodName}", food.name).replace("${foodCategory}", foodCategory); 
-    const foodCardDescription = foodDescription.replace("${foodName}", food.name); 
-
-    const activityName = activity.name; 
-    const activityDescription = activityDescriptionFillerTexts[randomIntFromInterval(0, 3)]; 
-    const activityCardTitle = "${activityName}".replace("${activityName}", activityName); 
-    const activityCardDescription = activityDescription.replace("${activityName}", activityName);
+    // const activityName = activity.name; 
+    // const activityDescription = activityDescriptionFillerTexts[randomIntFromInterval(0, 3)]; 
+    // const activityCardTitle = "${activityName}".replace("${activityName}", activityName); 
+    // const activityCardDescription = activityDescription.replace("${activityName}", activityName);
     return (
       <>
         <Jumbotron className="jumbo">
@@ -180,27 +204,87 @@ export default function Home() {
         <Container fluid>
             <CardDeck>
             <Card className="bg-3 text-white">
-              <Card.Img variant="top" src="./food.jpeg" className="card-image-top" />
+            <Card.Header className="bg-1">
+                  <Row className="text-center mx-auto w-100">
+                    <Col xs lg={12}>
+                    <p>{getFoodCardDescription()}</p>
+                    </Col>
+                    </Row>
+                </Card.Header>
               <Card.Body>
-                <Card.Title> {foodCardTitle} </Card.Title>
-                <Card.Text> {foodCardDescription} </Card.Text>
-                <Row className="justify-content-md-end">
-                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "food")} >
-                  <FaSyncAlt size={25} /></Button>
+                <Card.Text> 
+                  <Row className="card-text mx-auto w-100 my-auto h-100">
+                    <Col xs lg={2} className="justify-content-md-center my-auto">
+                      <h1>
+                    <FaUtensils className="iconL" size={30} /> 
+                    </h1>
+                    </Col>
+                    <Col xs lg={9}>
+                      <br></br>
+                      <h3 className="card-title"> {food.name}</h3>
+                      <h6 className="card-title">{getFoodCardTitle()}</h6>
+                    </Col>
                   </Row>
+                  {/* <Row>
+                    <Col xs lg={10}>
+                    </Col>
+                  </Row> */}
+                    </Card.Text>
               </Card.Body>
+              <Card.Footer className="card-footer">
+                <Row className="justify-content-md-end my-auto h-100">
+                  <Col xs lg={1}></Col>
+                  <Col xs lg={9}>
+                  </Col>
+                  <Col xs lg={2}>
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "food")} >
+                  <FaSyncAlt size={25} /> 
+                  </Button>
+                  </Col>
+                  </Row>
+                  </Card.Footer>
             </Card>
 
             <Card className="bg-3 text-white">
-              <Card.Img variant="top" src="./rl.png" className="card-image-top" />
+            <Card.Header className="bg-1">
+                  <Row className="text-center mx-auto w-100">
+                    <Col xs lg={12}>
+                    <p>{getActivityCardDescription()}</p>
+                    </Col>
+                    </Row>
+                </Card.Header>
               <Card.Body>
-                <Card.Title>{activityCardTitle}</Card.Title>
-                <Card.Text> {activityCardDescription} </Card.Text>
-                  <Row className="justify-content-md-end">
-                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "activity")} >
-                  <FaSyncAlt size={25} /></Button>
+                <Card.Text> 
+                  <Row className="card-text mx-auto w-100 my-auto h-100">
+                    <Col xs lg={2} className="justify-content-md-center my-auto">
+                      <h1>
+                    <FaHiking className="iconL" size={30} /> 
+                    </h1>
+                    </Col>
+                    <Col xs lg={9}>
+                      <br></br>
+                      <h3 className="card-title"> {activity.name}</h3>
+                      <h6 className="card-title">{getActivityCardTitle()}</h6>
+                    </Col>
                   </Row>
+                  {/* <Row>
+                    <Col xs lg={10}>
+                    </Col>
+                  </Row> */}
+                    </Card.Text>
               </Card.Body>
+              <Card.Footer className="card-footer">
+                <Row className="justify-content-md-end my-auto h-100">
+                  <Col xs lg={1}></Col>
+                  <Col xs lg={9}>
+                  </Col>
+                  <Col xs lg={2}>
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "activity")} >
+                  <FaSyncAlt size={25} /> 
+                  </Button>
+                  </Col>
+                  </Row>
+                  </Card.Footer>
             </Card>
             <Card className="text-white bg-3">
               <Card.Body>
@@ -217,7 +301,7 @@ export default function Home() {
     return (
       <div className="lander jumbo">
         <h1>tahoe buddy</h1>
-        <p className="slogan">unsure what to do? we have your back</p>
+        <p className="slogan">unsure what to do? we have your back. </p>
       </div>
     );
   }

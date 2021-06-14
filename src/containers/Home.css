@@ -4,13 +4,13 @@
 }
 
 .Home .lander h1 {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 600;
   color: #faf9f9
 }
 
 .Home .lander .slogan{
-  color: #64BEC3;
+  color: #FF8945;
   font-weight: 700;
 }
 
@@ -29,8 +29,15 @@
   min-height: 30%;
 }
 
+.Home .card-header {
+  max-height: 20%;
+}
+
 .Home .bg-1 {
-  background-color: #E3F5EE;
+  background-color: #64BEC3;
+  color: #005C70;
+  font-weight:bold;
+  font-size:14px;
 }
 
 .Home .bg-2 {
@@ -43,4 +50,8 @@
 
 .Home .slogan {
   color: #64BEC3;
+}
+
+.card-title {
+  text-shadow: 2px 2px #383838;
 }

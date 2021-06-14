@@ -35,7 +35,7 @@ export default function LoaderButton({
                 {cond === "Rain" && <BiCloudRain className="iconL" size={80}/>}
                 {cond === "Snow" && <BiCloudSnow className="iconL" size={80}/>}
                 <h4>
-                    <b>{max}° F</b> / {min}° F 
+                    {max}° F / {min}° F 
                 </h4>
             </Col>
             <Col xs lg={2}></Col>
