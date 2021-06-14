@@ -2,7 +2,6 @@ import API from "@aws-amplify/api";
 import React, { useState, useRef } from "react"; 
 import LoaderButton from "../components/LoaderButton";
 import Form from "react-bootstrap/Form"; 
-import "./SuggestRestaurant.css"; 
 import { Jumbotron } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { onError } from "../libs/errorLib";
@@ -25,8 +24,10 @@ export default function SuggestActivity() {
     const TABLE_NAME = 'tahoe-activities-1'
 
     function validateForm() {
-        return activityName.length > 0 & activityCategory.length > 0; 
-    }
+        const nameCheck = activityName.length > 0 & activityCategory.length > 0;
+        const heatCheck = activityHotness || activityColdness || activityTemperateness; 
+        const weatherCheck = activityRainyness || activitySnowyness; 
+        return nameCheck && heatCheck && weatherCheck;     }
 
     function handleFileChange(event) {
         suggestionFile.current = event.target.files[0];

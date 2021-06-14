@@ -24,8 +24,11 @@ export default function Suggestsong() {
     const TABLE_NAME = 'tahoe-songs-1'
 
     function validateForm() {
-        return songName.length > 0 & songCategory.length > 0; 
-    }
+        const nameCheck = songName.length > 0 & songCategory.length > 0;
+        const heatCheck = songHotness || songColdness || songTemperateness; 
+        const weatherCheck = songRainyness || songSnowyness; 
+        return nameCheck && heatCheck && weatherCheck; 
+        }
 
     /**
      * API Call requires: 
