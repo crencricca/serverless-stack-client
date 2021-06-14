@@ -10,33 +10,33 @@
 
   .btn-success.disabled, .btn-success:disabled {
     color: #fff;
-    background-color: #64BEC3;
-    border-color: #64BEC3;
+    background-color: #A63B00;
+    border-color: #A63B00;
   }
 
   .btn-success, .btn-success {
     color: #fff;
-    background-color: #64BEC3;
-    border-color: #64BEC3;
+    background-color: #A63B00;
+    border-color: #A63B00;
 }
 
 .btn-success:hover, .btn-success:hover {
   color: #fff;
-  background-color: #64BEC3 !important;
-  border-color: #64BEC3 !important;
+  background-color: #A63B00 !important;
+  border-color: #A63B00 !important;
 }
 
 .btn-success.focus, .btn-success:focus {
   color: #fff;
-  background-color: #64BEC3;
-  border-color: #64BEC3;
+  background-color: #A63B00;
+  border-color: #A63B00;
   
 }
 
 .btn-success.focus:hover, .btn-success:focus:hover {
   color: #fff;
-  background-color: #64BEC3 !important;
-  border-color: #64BEC3 !important;
+  background-color: #A63B00 !important;
+  border-color: #A63B00 !important;
   
 }
 
