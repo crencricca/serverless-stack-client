@@ -193,8 +193,8 @@ export default function Home() {
         const song = await loadSong();
         setSong(song);
 
-        setFoodVar(randomIntFromInterval(0, 11));
-        setActVar(randomIntFromInterval(0, 11));
+        setFoodVar(randomIntFromInterval(0, 10));
+        setActVar(randomIntFromInterval(0, 10));
       } catch (e) {
         console.log("erroring baby");
         onError(e);
@@ -217,11 +217,11 @@ export default function Home() {
       if (type === "activity") {
         const activity = await loadActivity();
         setActivity(activity);
-        setActVar(randomIntFromInterval(0, 11));
+        setActVar(randomIntFromInterval(0, 10));
       } else if (type === "food") {
         const food = await loadFood();
         setFood(food);
-        setFoodVar(randomIntFromInterval(0, 11));
+        setFoodVar(randomIntFromInterval(0, 10));
       } else {
         event.preventDefault();
         const song = await loadSong();
