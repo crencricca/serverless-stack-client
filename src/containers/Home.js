@@ -21,6 +21,7 @@ export default function Home() {
   const [cond, setCond] = useState(["Clear"])
   const [activity, setActivity] = useState([]);
   const [food, setFood] = useState([]);
+  const [song, setSong] = useState([]);
   const { isAuthenticated } = useAppContext();
   const [isLoading, setIsLoading] = useState(true);
   const [foodVar, setFoodVar] = useState([0]);
@@ -97,6 +98,22 @@ export default function Home() {
     return API.get("tahoe", `/tahoe/tahoe-food-1/60/Y`);
   }
 
+  function loadSong() {
+    //console.log("song API call",API.get("tahoe", `/tahoe/tahoe-songs-1/60/Y`));
+    return API.get("tahoe", `/tahoe/tahoe-songs-1/60/Y`);
+  }
+  function get_url_id(url) {
+    if (!url || url.length < 34) {
+        return "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    }
+    
+    var split_link = "watch?v="
+    var split_list = "&list"
+    var res1 = url.split(split_link)[1]
+    var new_url = res1.split(split_list)[0];
+    return new_url
+  }
+
   // This function loads the weather from the weather API.
   // TODO: take params
   function loadWeather() {
@@ -133,7 +150,7 @@ export default function Home() {
       }
   
       try {
-        console.log("fetching weathe");
+        console.log("fetching weather");
         const temp = await loadWeather();
         
         const activity = await loadActivity();
@@ -141,6 +158,9 @@ export default function Home() {
 
         const food = await loadFood();
         setFood(food);
+
+        const song = await loadSong();
+        setSong(song);
 
         setFoodVar(randomIntFromInterval(0, 3));
         setActVar(randomIntFromInterval(0, 3));
@@ -171,8 +191,11 @@ export default function Home() {
         const food = await loadFood();
         setFood(food);
         setFoodVar(randomIntFromInterval(0, 3));
+      } else {
+        event.preventDefault();
+        const song = await loadSong();
+        setSong(song);
       }
-      
     } catch (e) {
       onError(e);
     }
@@ -186,6 +209,9 @@ export default function Home() {
     // const activityDescription = activityDescriptionFillerTexts[randomIntFromInterval(0, 3)]; 
     // const activityCardTitle = "${activityName}".replace("${activityName}", activityName); 
     // const activityCardDescription = activityDescription.replace("${activityName}", activityName);
+
+    const songCardTitle = song.name;
+    const songEmbedId = get_url_id(song.songLink); 
     return (
       <>
         <Jumbotron className="jumbo">
@@ -203,6 +229,7 @@ export default function Home() {
         </Jumbotron>
         <Container fluid>
             <CardDeck>
+
             <Card className="bg-3 text-white">
             <Card.Header className="bg-1">
                   <Row className="text-center mx-auto w-100">
@@ -286,11 +313,37 @@ export default function Home() {
                   </Row>
                   </Card.Footer>
             </Card>
+
             <Card className="text-white bg-3">
+            <Card.Header className="bg-1">
+                  <Row className="text-center mx-auto w-100">
+                    <Col xs lg={12}>
+                    <p>{songCardTitle}</p>
+                    </Col>
+                    </Row>
+                </Card.Header>
               <Card.Body>
-                <Youtube embedId="rokGy0huYEA" />
+                <Youtube embedId={songEmbedId} />
+                  <Row className="justify-content-md-end">
+                  </Row>
               </Card.Body>
+
+              <Card.Footer className="card-footer">
+                <Row className="justify-content-md-end my-auto h-100">
+                  <Col xs lg={1}></Col>
+                  <Col xs lg={9}>
+                  </Col>
+                  <Col xs lg={2}>
+                  <Button variant="btn-outline-secondary text-light fa-2x" onClick={e => handleSubmit(e, "song")} >
+                  <FaSyncAlt size={25} /> 
+                  </Button>
+                  </Col>
+                  </Row>
+                  </Card.Footer>
+              
+
             </Card>
+            
             </CardDeck>
         </Container>
       </>
