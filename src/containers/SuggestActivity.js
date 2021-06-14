@@ -27,7 +27,7 @@ export default function SuggestActivity() {
         const nameCheck = activityName.length > 0 & activityCategory.length > 0;
         const heatCheck = activityHotness || activityColdness || activityTemperateness; 
         const weatherCheck = activityRainyness || activitySnowyness; 
-        return nameCheck && heatCheck && weatherCheck;     }
+        return nameCheck && heatCheck;     }
 
     function handleFileChange(event) {
         suggestionFile.current = event.target.files[0];

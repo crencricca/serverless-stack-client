@@ -27,7 +27,7 @@ export default function SuggestRestaurant() {
         const nameCheck = restaurantName.length > 0 & restaurantCategory.length > 0;
         const heatCheck = restaurantHotness || restaurantColdness || restaurantTemperateness; 
         const weatherCheck = restaurantRainyness || restaurantSnowyness; 
-        return nameCheck && heatCheck && weatherCheck; 
+        return nameCheck && heatCheck; 
     }
 
     function handleFileChange(event) {
