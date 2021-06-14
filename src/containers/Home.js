@@ -36,16 +36,12 @@ export default function Home() {
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadActivity() {
-    var t = (temp - 273.15) * (9/5) + 32;
-    console.log(t);
     return API.get("tahoe", `/tahoe/tahoe-activities-1/60/N`);
   }
 
   // This function loads an activity from the tahoe-activities-1 database.
   // TODO: take params
   function loadFood() {
-    var t = (temp - 273.15) * (9/5) + 32;
-    console.log(t);
     return API.get("tahoe", `/tahoe/tahoe-food-1/60/Y`);
   }
 
@@ -66,9 +62,12 @@ export default function Home() {
         setTemp(d);
         
         setCond(res.weather[0].main);
+
+        var high = parseInt((res.main.temp_max - 273.15) * (9/5) + 32);
+        var low = parseInt((res.main.temp_min - 273.15) * (9/5) + 32);
       
-        setMax(JSON.stringify(res.main.temp_max));
-        setMin(JSON.stringify(res.main.temp_min));
+        setMax(JSON.stringify(high));
+        setMin(JSON.stringify(low));
       })
     return out;
   }
