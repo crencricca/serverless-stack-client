@@ -243,7 +243,10 @@ export default function Home() {
     // const activityCardTitle = "${activityName}".replace("${activityName}", activityName); 
     // const activityCardDescription = activityDescription.replace("${activityName}", activityName);
 
-    const songCardTitle = song.name.toLowerCase();
+    var songCardTitle = song.name;
+    if (songCardTitle != null) {
+      songCardTitle = songCardTitle.toLowerCase();
+    }
     const songEmbedId = get_url_id(song.songLink); 
     return (
       <>
