@@ -1,0 +1,11 @@
+.btn-primary .btn-block .btn-lg{
+    color: #fff;
+    background-color: #A63B00;
+    border-color: #A63B00;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle{
+    color: #fff;
+    background-color: #A63B00;
+    border-color: #A63B00;
+}
