@@ -152,7 +152,7 @@ export default function Suggestsong() {
 
 
                         <Form.Group controlId="songName">
-                            <Form.Label> 1. what's the song name?</Form.Label> 
+                            <Form.Label> 1. song name and artist?</Form.Label> 
                             <Form.Control 
                                 value = {songName}
                                 type="text"

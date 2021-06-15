@@ -8,7 +8,7 @@ export default function Suggest() {
         <>
 
             <Jumbotron> 
-                <h1 class="display-4">would you want to make another suggestion?</h1>
+                <h1 class="display-4">make another suggestion?</h1>
                 <hr class="my-4">
                     </hr> 
 
