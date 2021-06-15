@@ -392,7 +392,7 @@ export default function Home() {
     return (
       <div className="lander jumbo">
         <h1>tahoe buddy</h1>
-        <p className="slogan">unsure what to do? we have your back. </p>
+        <p className="slogan">let us curate your tahoe to-do list. </p>
       </div>
     );
   }
