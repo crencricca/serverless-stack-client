@@ -162,7 +162,7 @@ export default function Suggestsong() {
                         </Form.Group>
 
                         <Form.Group controlId="songCateogory">
-                            <Form.Label> 2. what kind of song is this?</Form.Label> 
+                            <Form.Label> 2. how does this song make you feel?</Form.Label> 
                             <Form.Control 
                                 value = {songCategory}
                                 type="text"
